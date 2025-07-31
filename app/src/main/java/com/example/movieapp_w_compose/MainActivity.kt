@@ -11,38 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.movieapp_w_compose.ui.theme.MovieApp_W_ComposeTheme
+import com.example.movieapp_w_compose.features.navigation.Navigation
+import com.example.movieapp_w_compose.features.presentation.theme.MovieApp_W_ComposeTheme
+import com.example.movieapp_w_compose.features.presentation.theme.customTheme.CustomTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MovieApp_W_ComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            CustomTheme  {
+                Navigation()
             }
         }
     }
 }
-//TEST
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MovieApp_W_ComposeTheme {
-        Greeting("Android")
-    }
-}
