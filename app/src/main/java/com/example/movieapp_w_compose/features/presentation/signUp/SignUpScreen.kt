@@ -40,7 +40,7 @@ fun SignUpScreen(
 ) {
 
     LaunchedEffect(Unit) {
-        viewModel.eventFlow.collect { event ->
+        viewModel.singleEventFlow.collect { event ->
             when (event) {
                 is SignUpSingleEvent.OpenSignInScreen ->
                     backStack.removeLastOrNull()

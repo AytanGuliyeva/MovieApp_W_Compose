@@ -41,7 +41,7 @@ fun SignInScreen(
 ) {
 
     LaunchedEffect(Unit) {
-        viewModel.eventFlow.collect { event ->
+        viewModel.singleEventFlow.collect { event ->
             when (event) {
                 is SignInSingleEvent.OpenSignUpScreen -> {
                     backStack.add(MovieDestination.SignUp)

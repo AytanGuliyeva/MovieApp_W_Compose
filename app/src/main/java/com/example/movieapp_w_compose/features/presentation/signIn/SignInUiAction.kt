@@ -1,6 +1,8 @@
 package com.example.movieapp_w_compose.features.presentation.signIn
 
-sealed class SignInUiAction {
+import com.example.movieapp_w_compose.state.UiAction
+
+sealed class SignInUiAction:UiAction {
     data object Load : SignInUiAction()
     data object CreateOneClick : SignInUiAction()
     data object SignInClick : SignInUiAction()

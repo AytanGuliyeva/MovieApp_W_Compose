@@ -3,36 +3,35 @@ package com.example.movieapp_w_compose.features.presentation.signUp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.movieapp_w_compose.state.MviViewModel
+import com.example.movieapp_w_compose.state.UiState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class SignUpViewModel:ViewModel() {
+class SignUpViewModel : MviViewModel<
+        Unit,
+        UiState<Unit>,
+        SignUpUiAction,
+        SignUpSingleEvent
+        >() {
 
-    private val _eventFlow = MutableSharedFlow<SignUpSingleEvent>()
-    val eventFlow = _eventFlow
+    override fun initState(): UiState<Unit>  = UiState.Loading
 
-    init {
-        handleAction(SignUpUiAction.Load)
-    }
-
-    fun handleAction(action: SignUpUiAction){
+    override fun handleAction(action: SignUpUiAction) {
         when(action){
-            is SignUpUiAction.BackToSignInClick -> {
-                viewModelScope.launch {
-                    _eventFlow.emit(
-                        SignUpSingleEvent.OpenSignInScreen
-                    )
-                }
-            }
             is SignUpUiAction.Load -> {
+                submitState(UiState.Loading)
+                submitState(UiState.Success(Unit))
+            }
+            is SignUpUiAction.BackToSignInClick -> {
+                submitSingleEvent(SignUpSingleEvent.OpenSignInScreen)
             }
             is SignUpUiAction.SignUpClick -> {
-                viewModelScope.launch {
-                    _eventFlow.emit(
-                        SignUpSingleEvent.OpenHomeScreen
-                    )
-                }
+                submitState(UiState.Loading)
+                submitState(UiState.Success(Unit))
+                submitSingleEvent(SignUpSingleEvent.OpenHomeScreen)
             }
+
         }
     }
 }
