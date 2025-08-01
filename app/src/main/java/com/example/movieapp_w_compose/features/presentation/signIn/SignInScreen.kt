@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.features.presentation.SignIn
+package com.example.movieapp_w_compose.features.presentation.signIn
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,10 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,15 +25,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp_w_compose.R
+import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.components.MainButton
 import com.example.movieapp_w_compose.features.presentation.components.MainTextField
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    backStack: MutableList<MovieDestination>,
+    viewModel: SignInViewModel = viewModel()
+) {
+
+    LaunchedEffect(Unit) {
+        viewModel.eventFlow.collect { event ->
+            when (event) {
+                is SignInSingleEvent.OpenSignUpScreen -> {
+                    backStack.add(MovieDestination.SignUp)
+                }
+
+                is SignInSingleEvent.OpenHomeScreen -> {
+                    backStack.clear()
+                    backStack.add(MovieDestination.Home)
+                }
+            }
+        }
+    }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -61,59 +80,18 @@ fun SignInScreen() {
             onValueChange = { email = it },
             modifier = Modifier.fillMaxWidth(),
             labelText = stringResource(R.string.email_address),
-            leadingIconRes =R.drawable.ic_gmail
-            )
-       /* OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(text = stringResource(R.string.email_address)) },
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = Color.White,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                unfocusedTextColor = Color.White,
-                focusedLabelColor = Color.White,
-                focusedIndicatorColor = Color.White,
-                cursorColor = Color.White
-            ), leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_gmail),
-                    contentDescription = "gmail",
-                    tint = Color.Unspecified
-                )
-            },
-            modifier = Modifier.fillMaxWidth()
-        )*/
+            leadingIconRes = R.drawable.ic_gmail
+        )
         Spacer(modifier = Modifier.height(10.dp))
         MainTextField(
             value = password,
             onValueChange = { password = it },
             modifier = Modifier.fillMaxWidth(),
             labelText = stringResource(R.string.password),
-            leadingIconRes =R.drawable.ic_hide,
+            leadingIconRes = R.drawable.ic_lock,
             isPassword = true
+
         )
-        /*OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text(stringResource(R.string.password)) },
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = Color.White,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedLabelColor = Color.White,
-                focusedIndicatorColor = Color.White,
-                cursorColor = Color.White
-            ),
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_hide),
-                    contentDescription = "gmail",
-                    tint = Color.Unspecified
-                )
-            },
-            modifier = Modifier.fillMaxWidth()
-        )*/
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             modifier = Modifier
@@ -127,7 +105,7 @@ fun SignInScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            onClick = { },
+            onClick = { viewModel.handleAction(SignInUiAction.SignInClick)},
             text = stringResource(R.string.sign_in)
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -177,6 +155,9 @@ fun SignInScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .semantics(mergeDescendants = true) { },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -184,15 +165,11 @@ fun SignInScreen() {
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    viewModel.handleAction(SignInUiAction.CreateOneClick)
+                },
                 text = stringResource(R.string.create_one), color = MovieAppTheme.colors.red
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    SignInScreen()
 }

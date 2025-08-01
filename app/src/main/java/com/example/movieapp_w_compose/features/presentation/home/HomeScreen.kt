@@ -17,5 +17,5 @@ fun HomeScreen(){
 
 @Composable
 fun ViewPager(){
-    val viewPagerItems = remember {  }
+  //  val viewPagerItems = remember {  }
 }

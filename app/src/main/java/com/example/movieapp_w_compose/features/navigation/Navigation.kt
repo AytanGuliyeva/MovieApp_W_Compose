@@ -5,13 +5,15 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
-import com.example.movieapp_w_compose.features.presentation.SignIn.SignInScreen
+import com.example.movieapp_w_compose.features.presentation.home.HomeScreen
+import com.example.movieapp_w_compose.features.presentation.signIn.SignInScreen
+import com.example.movieapp_w_compose.features.presentation.signUp.SignUpScreen
 import com.example.movieapp_w_compose.features.presentation.splash.SplashScreen
 
 @Composable
 fun Navigation() {
     val backStack = remember {
-        mutableStateListOf<NotificationDestination>(NotificationDestination.SplashScreen)
+        mutableStateListOf<MovieDestination>(MovieDestination.SplashScreen)
 
     }
     NavDisplay(
@@ -19,16 +21,19 @@ fun Navigation() {
         onBack = { backStack.removeLastOrNull() },
         entryProvider = { destination ->
             when (destination) {
-                is NotificationDestination.SplashScreen -> NavEntry(destination) {
+                is MovieDestination.SplashScreen -> NavEntry(destination) {
                     SplashScreen(backStack)
                 }
 
-                is NotificationDestination.SignIn -> NavEntry(destination) {
-                    SignInScreen()
+                is MovieDestination.SignIn -> NavEntry(destination) {
+                    SignInScreen(backStack)
                 }
 
-                is NotificationDestination.SignUp -> NavEntry(destination) {
-                    //SignUpScreen()
+                is MovieDestination.SignUp -> NavEntry(destination) {
+                    SignUpScreen(backStack)
+                }
+                is MovieDestination.Home ->  NavEntry(destination){
+                    HomeScreen()
                 }
             }
         }

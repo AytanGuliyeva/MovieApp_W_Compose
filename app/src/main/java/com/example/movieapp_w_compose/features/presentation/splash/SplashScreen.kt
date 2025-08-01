@@ -18,16 +18,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.movieapp_w_compose.R
-import com.example.movieapp_w_compose.features.navigation.NotificationDestination
+import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(backStack: SnapshotStateList<NotificationDestination>){
+fun SplashScreen(backStack: SnapshotStateList<MovieDestination>){
     LaunchedEffect (Unit){
         delay(1000L)
         backStack.removeLastOrNull()
-        backStack.add(NotificationDestination.SignIn)
+        backStack.add(MovieDestination.SignIn)
     }
     Box(modifier = Modifier
         .fillMaxSize()
