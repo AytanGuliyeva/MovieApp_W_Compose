@@ -1,5 +1,6 @@
 package com.example.movieapp_w_compose.features.presentation.signIn
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,22 +25,32 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.components.MainButton
 import com.example.movieapp_w_compose.features.presentation.components.MainTextField
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
+import com.example.movieapp_w_compose.state.CommonScreen
+import com.example.movieapp_w_compose.state.UiState
 
 @Composable
 fun SignInScreen(
     backStack: MutableList<MovieDestination>,
-    viewModel: SignInViewModel = viewModel()
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiStateFlow.collectAsState()
+    val context = LocalContext.current
+
+
+    LaunchedEffect(Unit) {
+        viewModel.handleAction(SignInUiAction.Load)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.singleEventFlow.collect { event ->
@@ -54,122 +66,130 @@ fun SignInScreen(
             }
         }
     }
+
+    LaunchedEffect(uiState) {
+        if (uiState is UiState.Error) {
+            val message = (uiState as UiState.Error).errorMessage
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MovieAppTheme.colors.mainColor)
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(80.dp))
-        Text(
-            text = stringResource(R.string.sign_in),
-            style = MovieAppTheme.typograph.headlineMedium
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(R.string.login_to_continue_with_the_app),
-            style = MovieAppTheme.typograph.calloutMedium
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-        MainTextField(
-            value = email,
-            onValueChange = { email = it },
-            modifier = Modifier.fillMaxWidth(),
-            labelText = stringResource(R.string.email_address),
-            leadingIconRes = R.drawable.ic_gmail
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        MainTextField(
-            value = password,
-            onValueChange = { password = it },
-            modifier = Modifier.fillMaxWidth(),
-            labelText = stringResource(R.string.password),
-            leadingIconRes = R.drawable.ic_lock,
-            isPassword = true
-
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
+    CommonScreen(state = uiState) {
+        Column(
             modifier = Modifier
-                .clickable { }
-                .align(Alignment.End),
-            text = stringResource(R.string.forgot_password),
-            color = MovieAppTheme.colors.red,
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        MainButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            onClick = { viewModel.handleAction(SignInUiAction.SignInClick)},
-            text = stringResource(R.string.sign_in)
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .background(MovieAppTheme.colors.mainColor)
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Divider(
-                color = Color.White,
-                modifier = Modifier.weight(1f)
-            )
+            Spacer(modifier = Modifier.height(80.dp))
             Text(
-                text = stringResource(R.string.or_login_with),
-                color = Color.White,
-                modifier = Modifier.padding(horizontal = 8.dp)
+                text = stringResource(R.string.sign_in),
+                style = MovieAppTheme.typograph.headlineMedium
             )
-            Divider(
-                color = Color.White,
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                modifier = Modifier.clickable { },
-                painter = painterResource(R.drawable.ic_fb),
-                contentDescription = null,
-                tint = Color.Unspecified
-            )
-            Icon(
-                modifier = Modifier.clickable { },
-                painter = painterResource(R.drawable.ic_apple),
-                contentDescription = null,
-                tint = Color.Unspecified
-            )
-            Icon(
-                modifier = Modifier.clickable { },
-
-                painter = painterResource(R.drawable.ic_google_plus),
-                contentDescription = null,
-                tint = Color.Unspecified
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .semantics(mergeDescendants = true) { },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = stringResource(R.string.don_t_you_have_an_account), color = Color.White
+                text = stringResource(R.string.login_to_continue_with_the_app),
+                style = MovieAppTheme.typograph.calloutMedium
             )
-            Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier = Modifier.height(30.dp))
+            MainTextField(
+                value = email,
+                onValueChange = { email = it },
+                modifier = Modifier.fillMaxWidth(),
+                labelText = stringResource(R.string.email_address),
+                leadingIconRes = R.drawable.ic_gmail
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            MainTextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier.fillMaxWidth(),
+                labelText = stringResource(R.string.password),
+                leadingIconRes = R.drawable.ic_lock,
+                isPassword = true
+            )
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
-                modifier = Modifier.clickable {
-                    viewModel.handleAction(SignInUiAction.CreateOneClick)
-                },
-                text = stringResource(R.string.create_one), color = MovieAppTheme.colors.red
+                modifier = Modifier
+                    .clickable { }
+                    .align(Alignment.End),
+                text = stringResource(R.string.forgot_password),
+                color = MovieAppTheme.colors.red,
             )
+            Spacer(modifier = Modifier.height(15.dp))
+            MainButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                onClick = { viewModel.handleAction(SignInUiAction.SignInClick(email, password)) },
+                text = stringResource(R.string.sign_in)
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Divider(
+                    color = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = stringResource(R.string.or_login_with),
+                    color = Color.White,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Divider(
+                    color = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    modifier = Modifier.clickable { },
+                    painter = painterResource(R.drawable.ic_fb),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+                Icon(
+                    modifier = Modifier.clickable { },
+                    painter = painterResource(R.drawable.ic_apple),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+                Icon(
+                    modifier = Modifier.clickable { },
+
+                    painter = painterResource(R.drawable.ic_google_plus),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .semantics(mergeDescendants = true) { },
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.don_t_you_have_an_account), color = Color.White
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    modifier = Modifier.clickable {
+                        viewModel.handleAction(SignInUiAction.CreateOneClick)
+                    },
+                    text = stringResource(R.string.create_one), color = MovieAppTheme.colors.red
+                )
+            }
         }
     }
 }

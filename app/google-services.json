@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994976926269",
+    "project_id": "movieappwcompose",
+    "storage_bucket": "movieappwcompose.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994976926269:android:57b80ac722850f8ae33854",
+        "android_client_info": {
+          "package_name": "com.example.movieapp_w_compose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALFJDxrhtsvKS7zDG4tJPtBV67rqrKaJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

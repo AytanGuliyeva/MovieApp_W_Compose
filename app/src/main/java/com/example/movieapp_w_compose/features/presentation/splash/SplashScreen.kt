@@ -20,15 +20,29 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(backStack: SnapshotStateList<MovieDestination>){
+
+    val auth = FirebaseAuth.getInstance()
+
+
     LaunchedEffect (Unit){
         delay(1000L)
         backStack.removeLastOrNull()
         backStack.add(MovieDestination.SignIn)
     }
+
+    if (auth.currentUser != null){
+        backStack.clear()
+        backStack.add(MovieDestination.Home)
+    }else{
+        backStack.clear()
+        backStack.add(MovieDestination.SignIn)
+    }
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(MovieAppTheme.colors.red),

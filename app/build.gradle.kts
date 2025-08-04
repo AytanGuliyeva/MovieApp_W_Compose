@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 
 }
 
@@ -11,6 +15,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
+
         applicationId = "com.example.movieapp_w_compose"
         minSdk = 24
         targetSdk = 36
@@ -42,7 +47,24 @@ android {
 }
 
 dependencies {
+    //compose_hilt
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.7.0")
+
+    //Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.57")
+    implementation("androidx.activity:activity:1.10.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.57")
+
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
+
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
 
     // nav
     implementation(libs.androidx.navigation3.ui)
@@ -70,4 +92,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+kapt {
+    correctErrorTypes = true
 }
