@@ -1,17 +1,10 @@
 package com.example.movieapp_w_compose.features.presentation.signIn
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.movieapp_w_compose.features.presentation.signUp.SignUpUiAction
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.FirebaseAuth
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(private val auth: FirebaseAuth) : MviViewModel<
@@ -45,6 +38,7 @@ class SignInViewModel @Inject constructor(private val auth: FirebaseAuth) : MviV
     }
 
     private fun signWithEmail(email: String, password: String) {
+
         if (email.isBlank() || password.isBlank()) {
             submitState(UiState.Error("Please fill in both email and password"))
             return

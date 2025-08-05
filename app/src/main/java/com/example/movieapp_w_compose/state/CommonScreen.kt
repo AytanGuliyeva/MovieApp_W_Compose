@@ -29,8 +29,11 @@ fun <T : Any> CommonScreen(state: UiState<T>, onSuccess: @Composable (T) -> Unit
             Loading()
         }
 
-        is UiState.Success, is UiState.Error -> {
-            onSuccess((state as? UiState.Success<T>)?.data ?: Unit as T)
+        is UiState.Success -> {
+            onSuccess(state.data)
+        }
+
+        is UiState.Error -> {
         }
     }
 }

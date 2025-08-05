@@ -21,4 +21,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="sign_up">Sign Up</string>
     <string name="you_already_have_an_account">You already have an account?</string>
+    <string name="profile_content">Profile Content</string>
+    <string name="search_content">Search Content</string>
+    <string name="home_content">Home Content</string>
 </resources>

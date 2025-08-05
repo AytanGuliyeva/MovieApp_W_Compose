@@ -47,16 +47,36 @@ android {
 }
 
 dependencies {
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
+
+
+    // pager
+    implementation("com.google.accompanist:accompanist-pager:0.34.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+
+    //coil
+    // build.gradle (app-level)
+    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("com.google.accompanist:accompanist-pager:0.36.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
+
     //compose_hilt
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
     implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.7.0")
 
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.57")
     implementation("androidx.activity:activity:1.10.1")
     kapt("com.google.dagger:hilt-android-compiler:2.57")
-
 
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
