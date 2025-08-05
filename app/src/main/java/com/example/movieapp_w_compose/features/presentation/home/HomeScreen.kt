@@ -1,6 +1,8 @@
 package com.example.movieapp_w_compose.features.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -25,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.features.bottomNav.TabNavigator
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.LocalAppTypograph
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
+import com.example.movieapp_w_compose.retrofit.model.Movie
 import com.example.movieapp_w_compose.state.CommonScreen
 
 
@@ -40,10 +45,10 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
 
     LaunchedEffect(Unit) {
         viewModel.handleAction(HomeUiAction.Load)
-        viewModel.handleAction(HomeUiAction.NowPlayingMovies)
     }
 
     CommonScreen(state = state) { homeState ->
+        val genreMovies = homeState.genreMovies
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -58,30 +63,50 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 10.dp),
                 text = "Categories",
-                style = LocalAppTypograph.current.titleMedium
+                style = LocalAppTypograph.current.titleMedium,
             )
 
             Row(
                 modifier = Modifier
                     .horizontalScroll(rememberScrollState())
-                    .padding(10.dp)
+                    .padding(horizontal = 10.dp, vertical = 8.dp)
             ) {
-                // genre chip list
+                homeState.genres.forEach { genre ->
+                    val isSelected = genre.id == homeState.selectedGenreId
+                    ChipItem(
+                        genre = genre,
+                        isSelected = isSelected,
+                        onClick = {
+                            viewModel.handleAction(HomeUiAction.GenreSelected(genre.id))
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
             }
-
+            if (genreMovies.isNotEmpty()) {
+                LazyRow {
+                    items(genreMovies) { movie ->
+                        MovieItem(movie = movie)
+                    }
+                }
+            }
             Text(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 10.dp),
                 text = "Most Popular",
                 style = LocalAppTypograph.current.titleMedium,
-                modifier = Modifier.padding(horizontal = 10.dp)
             )
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
-                items(10) {
-                    // MovieItem()
+                items(homeState.popularMovies) { popularMovies ->
+                    MovieItem(movie = popularMovies)
                 }
             }
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,12 +114,12 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text("Top Rated", style = LocalAppTypograph.current.titleMedium)
-                Text("See all", style = LocalAppTypograph.current.subtitleMedium)
             }
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
-                items(10) {
-                    // MovieItem()
+                items(homeState.topRatedMovies) { topRatedMovies ->
+                    Log.e("home", "HomeScreenContent: $topRatedMovies", )
+                    MovieItem(movie = topRatedMovies)
                 }
             }
         }

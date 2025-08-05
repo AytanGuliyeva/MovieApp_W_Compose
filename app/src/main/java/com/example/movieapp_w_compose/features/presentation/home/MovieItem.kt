@@ -22,7 +22,7 @@ fun MovieItem(movie: Movie) {
             .width(100.dp)
             .height(150.dp)
             .padding(10.dp)
-            .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
+            .clip(RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp, bottomEnd = 12.dp, bottomStart = 12.dp))
     ) {
         AsyncImage(
             model = posterUrl,

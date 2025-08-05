@@ -12,19 +12,14 @@ class Repository @Inject constructor(
     private val tmdbApi: TmdbService
 ) {
 
-   // private val tmdbApi = RetrofitInstance.getInstance().create(TmdbService::class.java)
-
     suspend fun getPopularMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getPopularMovies(apiKey)
+        return tmdbApi.getPopularMovies("Bearer $apiKey")
 
     }
-//    suspend fun getPopularMovies(apiToken: String): Response<MovieResponse> {
-//        return tmdbApi.getPopularMovies("Bearer $apiToken")
-//    }
 
 
     suspend fun getTopRatedMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getTopRatedMovies(apiKey)
+        return tmdbApi.getTopRatedMovies("Bearer $apiKey")
     }
 
     suspend fun getNowPlayingMovies(apiKey: String): Response<MovieResponse> {
@@ -32,10 +27,10 @@ class Repository @Inject constructor(
     }
 
     suspend fun getCategoryMovies(apiKey: String, genreId: Int): Response<MovieResponse> {
-        return tmdbApi.getCategoryMovies(apiKey, genreId)
+        return tmdbApi.getCategoryMovies("Bearer $apiKey", genreId)
     }
     suspend fun getGenres(apiKey: String): Response<GenreResponse> {
-        return tmdbApi.getGenres(apiKey)
+        return tmdbApi.getGenres("Bearer $apiKey")
     }
     suspend fun getMovies(apiKey: String): Response<MovieResponse> {
         return tmdbApi.getMovies(apiKey)
