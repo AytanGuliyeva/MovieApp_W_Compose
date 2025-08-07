@@ -1,8 +1,5 @@
 package com.example.movieapp_w_compose.features.presentation.signUp
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp_w_compose.base.ConstValues
 import com.example.movieapp_w_compose.data.User
 import com.example.movieapp_w_compose.state.MviViewModel
@@ -11,16 +8,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) : MviViewModel<
-        Unit,
-        UiState<Unit>,
+        SignUpState,
+        UiState<SignUpState>,
         SignUpUiAction,
         SignUpSingleEvent
         >() {
@@ -28,13 +23,15 @@ class SignUpViewModel @Inject constructor(
     private var latestUserInput: User? = null
 
 
-    override fun initState(): UiState<Unit> = UiState.Loading
+    override fun initState(): UiState<SignUpState> = UiState.Loading
 
     override fun handleAction(action: SignUpUiAction) {
+        val current = (uiStateFlow.value as? UiState.Success)?.data ?: SignUpState()
+
         when (action) {
             is SignUpUiAction.Load -> {
                 submitState(UiState.Loading)
-                submitState(UiState.Success(Unit))
+                submitState(UiState.Success(current.copy(isLoading = true, errorMessage = null)))
             }
 
             is SignUpUiAction.BackToSignInClick -> {
@@ -44,6 +41,21 @@ class SignUpViewModel @Inject constructor(
             is SignUpUiAction.SignUpClick -> {
                 latestUserInput = action.input
                 performSignUp(action.input)
+            }
+            is SignUpUiAction.UsernameChanged -> {
+                submitState(UiState.Success(current.copy(username = action.value)))
+            }
+
+            is SignUpUiAction.EmailChanged -> {
+                submitState(UiState.Success(current.copy(email = action.value)))
+            }
+
+            is SignUpUiAction.PhoneChanged -> {
+                submitState(UiState.Success(current.copy(phone = action.value)))
+            }
+
+            is SignUpUiAction.PasswordChanged -> {
+                submitState(UiState.Success(current.copy(password = action.value)))
             }
 
         }

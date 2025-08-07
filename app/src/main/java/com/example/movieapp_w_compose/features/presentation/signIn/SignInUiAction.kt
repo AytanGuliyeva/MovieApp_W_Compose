@@ -6,4 +6,8 @@ sealed class SignInUiAction : UiAction {
     data object Load : SignInUiAction()
     data object CreateOneClick : SignInUiAction()
     data class SignInClick(val email: String, val password: String) : SignInUiAction()
+    data class EmailChanged(val value: String) : SignInUiAction()
+    data class PasswordChanged(val value: String) : SignInUiAction()
+    data object ClearForm : SignInUiAction()
+
 }

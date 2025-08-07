@@ -32,8 +32,9 @@ fun Navigation() {
                 is MovieDestination.SignUp -> NavEntry(destination) {
                     SignUpScreen(backStack)
                 }
+
                 is MovieDestination.Home ->  NavEntry(destination){
-                    HomeScreen()
+                    HomeScreen(backStack)
                 }
             }
         }

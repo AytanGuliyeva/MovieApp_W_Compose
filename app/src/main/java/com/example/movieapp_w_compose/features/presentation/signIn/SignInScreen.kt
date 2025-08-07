@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
-import com.example.movieapp_w_compose.features.presentation.components.MainButton
-import com.example.movieapp_w_compose.features.presentation.components.MainTextField
+import com.example.movieapp_w_compose.features.presentation.home.components.MainButton
+import com.example.movieapp_w_compose.features.presentation.home.components.MainTextField
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
 import com.example.movieapp_w_compose.state.UiState
@@ -50,7 +50,9 @@ fun SignInScreen(
 
     LaunchedEffect(Unit) {
         viewModel.handleAction(SignInUiAction.Load)
+        viewModel.submitAction(SignInUiAction.ClearForm)
     }
+
 
     LaunchedEffect(Unit) {
         viewModel.singleEventFlow.collect { event ->
@@ -74,9 +76,10 @@ fun SignInScreen(
         }
     }
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    CommonScreen(state = uiState) {
+    //var email by remember { mutableStateOf("") }
+    // var password by remember { mutableStateOf("") }
+    CommonScreen(state = uiState) { signInState ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -96,16 +99,16 @@ fun SignInScreen(
             )
             Spacer(modifier = Modifier.height(30.dp))
             MainTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = signInState.email,
+                onValueChange = { viewModel.handleAction(SignInUiAction.EmailChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.email_address),
                 leadingIconRes = R.drawable.ic_gmail
             )
             Spacer(modifier = Modifier.height(10.dp))
             MainTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = signInState.password,
+                onValueChange = { viewModel.handleAction(SignInUiAction.PasswordChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.password),
                 leadingIconRes = R.drawable.ic_lock,
@@ -124,8 +127,14 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                onClick = { viewModel.handleAction(SignInUiAction.SignInClick(email, password)) },
-                text = stringResource(R.string.sign_in)
+                onClick = {
+                    viewModel.handleAction(
+                        SignInUiAction.SignInClick(
+                            signInState.email,
+                            signInState.password
+                        )
+                    )
+                }, text = stringResource(R.string.sign_in)
             )
             Spacer(modifier = Modifier.height(20.dp))
             Row(

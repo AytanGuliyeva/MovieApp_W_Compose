@@ -34,8 +34,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.data.User
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
-import com.example.movieapp_w_compose.features.presentation.components.MainButton
-import com.example.movieapp_w_compose.features.presentation.components.MainTextField
+import com.example.movieapp_w_compose.features.presentation.home.components.MainButton
+import com.example.movieapp_w_compose.features.presentation.home.components.MainTextField
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
 import com.example.movieapp_w_compose.state.UiState
@@ -74,12 +74,13 @@ fun SignUpScreen(
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-    var username by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+//    var username by remember { mutableStateOf("") }
+//    var email by remember { mutableStateOf("") }
+//    var phoneNumber by remember { mutableStateOf("") }
+//    var password by remember { mutableStateOf("") }
 
-    CommonScreen(state = uiState) {
+    CommonScreen(state = uiState) { signUpScreen ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -99,16 +100,16 @@ fun SignUpScreen(
             )
             Spacer(modifier = Modifier.height(30.dp))
             MainTextField(
-                value = username,
-                onValueChange = { username = it },
+                value = signUpScreen.username,
+                onValueChange = {viewModel.handleAction(SignUpUiAction.UsernameChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.username),
                 leadingIconRes = R.drawable.ic_username
             )
             Spacer(modifier = Modifier.height(10.dp))
             MainTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = signUpScreen.email,
+                onValueChange = {viewModel.handleAction(SignUpUiAction.EmailChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.email_address),
                 leadingIconRes = R.drawable.ic_gmail,
@@ -116,8 +117,8 @@ fun SignUpScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             MainTextField(
-                value = phoneNumber,
-                onValueChange = { phoneNumber = it },
+                value = signUpScreen.phone,
+                onValueChange = {viewModel.handleAction(SignUpUiAction.PhoneChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.phone_number),
                 leadingIconRes = R.drawable.ic_phone,
@@ -125,8 +126,8 @@ fun SignUpScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             MainTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = signUpScreen.password,
+                onValueChange = {viewModel.handleAction(SignUpUiAction.PasswordChanged(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 labelText = stringResource(R.string.password),
                 leadingIconRes = R.drawable.ic_lock,
@@ -142,10 +143,10 @@ fun SignUpScreen(
                     viewModel.handleAction(
                         SignUpUiAction.SignUpClick(
                             User(
-                                username = username,
-                                email = email,
-                                password = password,
-                                phone = phoneNumber
+                                username = signUpScreen.username,
+                                email = signUpScreen.email,
+                                password = signUpScreen.password,
+                                phone = signUpScreen.phone
                             )
                         )
                     )

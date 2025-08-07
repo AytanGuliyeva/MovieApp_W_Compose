@@ -15,30 +15,21 @@ interface TmdbService {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-//        @Query("api_key") apiKey: String
         @Header("Authorization") bearerToken: String
     ): Response<MovieResponse>
 
-//    @GET("movie/popular")
-//    suspend fun getPopularMovies(
-//        @Header("Authorization") bearerToken: String
-//    ): Response<MovieResponse>
-
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
-       // @Query("api_key") apiKey: String
         @Header("Authorization") bearerToken: String
     ): Response<MovieResponse>
 
     @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
-//        @Query("api_key") apiKey: String
         @Header("Authorization") bearerToken: String
     ): Response<MovieResponse>
 
     @GET("discover/movie")
     suspend fun getCategoryMovies(
-        //  @Query("api_key") apiKey: String,
         @Header("Authorization") bearerToken: String,
         @Query("with_genres") genreId: Int
     ): Response<MovieResponse>
@@ -46,20 +37,19 @@ interface TmdbService {
 
     @GET("discover/movie")
     suspend fun getMovies(
-        @Query("api_key") apiKey: String
+        @Header("Authorization") bearerToken: String
     ): Response<MovieResponse>
 
 
     @GET("genre/movie/list")
     suspend fun getGenres(
-//        @Query("api_key") apiKey: String
         @Header("Authorization") bearerToken: String
     ): Response<GenreResponse>
 
 
     @GET("search/movie")
     suspend fun searchMovies(
-        @Query("api_key") apiKey: String,
+        @Header("Authorization") bearerToken: String,
         @Query("query") query: String
     ): Response<MovieResponse>
 

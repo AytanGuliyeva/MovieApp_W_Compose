@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.features.presentation.components
+package com.example.movieapp_w_compose.features.presentation.home.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth

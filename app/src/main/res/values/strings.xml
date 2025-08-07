@@ -24,4 +24,5 @@
     <string name="profile_content">Profile Content</string>
     <string name="search_content">Search Content</string>
     <string name="home_content">Home Content</string>
+    <string name="log_out">Log out</string>
 </resources>

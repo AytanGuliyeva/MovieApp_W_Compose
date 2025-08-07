@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.features.presentation.components
+package com.example.movieapp_w_compose.features.presentation.home.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

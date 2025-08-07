@@ -2,7 +2,6 @@ package com.example.movieapp_w_compose.features.presentation.home
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,15 +26,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.features.bottomNav.TabNavigator
+import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.LocalAppTypograph
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
-import com.example.movieapp_w_compose.retrofit.model.Movie
 import com.example.movieapp_w_compose.state.CommonScreen
 
 
 @Composable
-fun HomeScreen() {
-    TabNavigator()
+fun HomeScreen(backStack: MutableList<MovieDestination>) {
+    TabNavigator(backStack = backStack)
 }
 
 
@@ -118,7 +117,7 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
                 items(homeState.topRatedMovies) { topRatedMovies ->
-                    Log.e("home", "HomeScreenContent: $topRatedMovies", )
+                    Log.e("home", "HomeScreenContent: $topRatedMovies")
                     MovieItem(movie = topRatedMovies)
                 }
             }

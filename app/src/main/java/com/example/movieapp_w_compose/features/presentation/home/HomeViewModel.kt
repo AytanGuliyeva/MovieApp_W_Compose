@@ -42,14 +42,15 @@ class HomeViewModel @Inject constructor(
             is HomeUiAction.TopRatedMovies -> getTopRatedMovies(ConstValues.API_TOKEN)
         }
     }
-    fun getTopRatedMovies(apiKey: String) {
+
+    private fun getTopRatedMovies(apiKey: String) {
         viewModelScope.launch {
             try {
                 val response = repository.getTopRatedMovies(apiKey)
                 if (response.isSuccessful) {
 
                     val movies = response.body()?.results ?: emptyList()
-                    val currentState = (uiStateFlow.value  as? UiState.Success)?.data ?:HomeState()
+                    val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: HomeState()
                     val newState = currentState.copy(
                         topRatedMovies = movies
                     )
@@ -63,6 +64,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     private fun getPopularMovies(apiKey: String) {
         viewModelScope.launch {
             try {
@@ -71,7 +73,7 @@ class HomeViewModel @Inject constructor(
                     val movies = response.body()?.results ?: emptyList()
                     val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: HomeState()
                     val newState = currentState.copy(
-                      popularMovies = movies
+                        popularMovies = movies
                     )
                     submitState(UiState.Success(newState))
                     Log.d("HomeViewModel", "Fetched popular movies: ${response.body()}")

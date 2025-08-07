@@ -9,14 +9,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.home.HomeScreen
 import com.example.movieapp_w_compose.features.presentation.home.HomeScreenContent
 import com.example.movieapp_w_compose.features.presentation.profile.ProfileScreen
 import com.example.movieapp_w_compose.features.presentation.search.SearchScreen
 
-
 @Composable
-fun TabNavigator() {
+fun TabNavigator(backStack: MutableList<MovieDestination>) {
     var selectedItem by remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }
 
     Scaffold(
@@ -31,7 +31,13 @@ fun TabNavigator() {
             when (selectedItem) {
                 BottomNavItem.Home -> HomeScreenContent()
                 BottomNavItem.Search -> SearchScreen()
-                BottomNavItem.Profile -> ProfileScreen()
+                BottomNavItem.Profile -> ProfileScreen(
+                    backStack = backStack,
+                    onLogout = {
+                        backStack.clear()
+                        backStack.add(MovieDestination.SignIn)
+                    }
+                )
             }
         }
     }

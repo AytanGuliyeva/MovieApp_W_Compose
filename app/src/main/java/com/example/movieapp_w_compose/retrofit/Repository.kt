@@ -17,7 +17,6 @@ class Repository @Inject constructor(
 
     }
 
-
     suspend fun getTopRatedMovies(apiKey: String): Response<MovieResponse> {
         return tmdbApi.getTopRatedMovies("Bearer $apiKey")
     }
@@ -33,10 +32,10 @@ class Repository @Inject constructor(
         return tmdbApi.getGenres("Bearer $apiKey")
     }
     suspend fun getMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getMovies(apiKey)
+        return tmdbApi.getMovies("Bearer $apiKey")
     }
     suspend fun getSearch(apiKey: String, query: String): Response<MovieResponse> {
-        return tmdbApi.searchMovies(apiKey, query)
+        return tmdbApi.searchMovies("Bearer $apiKey", query)
     }
 
     suspend fun getVideos(movie_id: Int ,apiKey: String): Response<VideoResponse> {

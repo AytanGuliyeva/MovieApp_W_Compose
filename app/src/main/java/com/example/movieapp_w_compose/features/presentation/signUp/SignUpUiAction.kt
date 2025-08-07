@@ -8,4 +8,8 @@ sealed class SignUpUiAction :UiAction{
     data object Load : SignUpUiAction()
     data object BackToSignInClick : SignUpUiAction()
     data class SignUpClick (val input :User): SignUpUiAction()
+    data class UsernameChanged(val value: String) : SignUpUiAction()
+    data class EmailChanged(val value: String) : SignUpUiAction()
+    data class PhoneChanged(val value: String) : SignUpUiAction()
+    data class PasswordChanged(val value: String) : SignUpUiAction()
 }
