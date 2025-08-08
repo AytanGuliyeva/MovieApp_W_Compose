@@ -29,17 +29,13 @@ class HomeViewModel @Inject constructor(
     override fun handleAction(action: HomeUiAction) {
         when (action) {
             is HomeUiAction.Load -> {
-                handleAction(HomeUiAction.NowPlayingMovies)
-                handleAction(HomeUiAction.MovieGenres)
-                handleAction(HomeUiAction.GetPopularMovies)
-                handleAction(HomeUiAction.TopRatedMovies)
+                getNowPlayingMovies(ConstValues.API_TOKEN)
+                getGenres(ConstValues.API_TOKEN)
+                getPopularMovies(ConstValues.API_TOKEN)
+                getTopRatedMovies(ConstValues.API_TOKEN)
             }
 
-            is HomeUiAction.NowPlayingMovies -> getNowPlayingMovies(ConstValues.API_TOKEN)
-            is HomeUiAction.MovieGenres -> getGenres(ConstValues.API_TOKEN)
             is HomeUiAction.GenreSelected -> getMoviesByGenre(ConstValues.API_TOKEN, action.genreId)
-            is HomeUiAction.GetPopularMovies -> getPopularMovies(ConstValues.API_TOKEN)
-            is HomeUiAction.TopRatedMovies -> getTopRatedMovies(ConstValues.API_TOKEN)
         }
     }
 
@@ -142,7 +138,7 @@ class HomeViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     val urls = response.body()?.results
                         ?.take(5)
-                        ?.mapNotNull { it.poster_path }
+                        ?.mapNotNull { it.posterPath }
                         ?.map { "https://image.tmdb.org/t/p/w500$it" }
                         ?: emptyList()
 
@@ -165,3 +161,4 @@ class HomeViewModel @Inject constructor(
         }
     }
 }
+

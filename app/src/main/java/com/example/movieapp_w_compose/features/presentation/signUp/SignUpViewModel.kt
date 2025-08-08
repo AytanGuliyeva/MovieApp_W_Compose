@@ -2,6 +2,7 @@ package com.example.movieapp_w_compose.features.presentation.signUp
 
 import com.example.movieapp_w_compose.base.ConstValues
 import com.example.movieapp_w_compose.data.User
+import com.example.movieapp_w_compose.features.presentation.home.HomeUiAction
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +23,9 @@ class SignUpViewModel @Inject constructor(
 
     private var latestUserInput: User? = null
 
-
+    init {
+        handleAction(SignUpUiAction.Load)
+    }
     override fun initState(): UiState<SignUpState> = UiState.Loading
 
     override fun handleAction(action: SignUpUiAction) {

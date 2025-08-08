@@ -37,14 +37,9 @@ fun HomeScreen(backStack: MutableList<MovieDestination>) {
     TabNavigator(backStack = backStack)
 }
 
-
 @Composable
 fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.uiStateFlow.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.handleAction(HomeUiAction.Load)
-    }
 
     CommonScreen(state = state) { homeState ->
         val genreMovies = homeState.genreMovies
@@ -89,7 +84,11 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
             if (genreMovies.isNotEmpty()) {
                 LazyRow {
                     items(genreMovies) { movie ->
-                        MovieItem(movie = movie)
+                        movie.posterPath?.let {
+                            MovieItem(title = movie.title,
+                                posterPath = it
+                            )
+                        }
                     }
                 }
             }
@@ -103,7 +102,11 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
                 items(homeState.popularMovies) { popularMovies ->
-                    MovieItem(movie = popularMovies)
+                    popularMovies.posterPath?.let {
+                        MovieItem(title = popularMovies.title,
+                            posterPath = it
+                        )
+                    }
                 }
             }
             Row(
@@ -118,7 +121,11 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
                 items(homeState.topRatedMovies) { topRatedMovies ->
                     Log.e("home", "HomeScreenContent: $topRatedMovies")
-                    MovieItem(movie = topRatedMovies)
+                    topRatedMovies.posterPath?.let {
+                        MovieItem(title = topRatedMovies.title,
+                            posterPath = it
+                        )
+                    }
                 }
             }
         }

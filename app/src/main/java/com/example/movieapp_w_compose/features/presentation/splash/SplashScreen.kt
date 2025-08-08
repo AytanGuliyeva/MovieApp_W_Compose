@@ -31,16 +31,13 @@ fun SplashScreen(backStack: SnapshotStateList<MovieDestination>){
 
     LaunchedEffect (Unit){
         delay(1000L)
-        backStack.removeLastOrNull()
-        backStack.add(MovieDestination.SignIn)
-    }
-
-    if (auth.currentUser != null){
-        backStack.clear()
-        backStack.add(MovieDestination.Home)
-    }else{
-        backStack.clear()
-        backStack.add(MovieDestination.SignIn)
+        if (auth.currentUser != null){
+            backStack.clear()
+            backStack.add(MovieDestination.Home)
+        }else{
+            backStack.clear()
+            backStack.add(MovieDestination.SignIn)
+        }
     }
 
     Box(modifier = Modifier

@@ -50,9 +50,9 @@ fun SignUpScreen(
     val uiState by viewModel.uiStateFlow.collectAsState()
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        viewModel.handleAction(SignUpUiAction.Load)
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.handleAction(SignUpUiAction.Load)
+//    }
 
     LaunchedEffect(Unit) {
         viewModel.singleEventFlow.collect { event ->

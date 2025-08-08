@@ -30,20 +30,21 @@ class SearchViewModel @Inject constructor(
     override fun handleAction(action: SearchUiAction) {
         when(action){
             is SearchUiAction.Load ->{
-                handleAction(SearchUiAction.MovieResult)
-
-            }
-            is SearchUiAction.MovieResult -> {
+                //handleAction(SearchUiAction.MovieResult)
                 getMovies(ConstValues.API_TOKEN)
 
             }
+//            is SearchUiAction.MovieResult -> {
+//                getMovies(ConstValues.API_TOKEN)
+//
+//            }
             is SearchUiAction.SearchResult -> {
                 getSearch(ConstValues.API_TOKEN,currentState().query)
             }
             is SearchUiAction.SearchQueryChanged -> {
                 val newState = currentState().copy(query = action.query)
                 submitState(UiState.Success(newState))
-                handleAction(SearchUiAction.SearchResult)
+               handleAction(SearchUiAction.SearchResult)
             }
         }
     }

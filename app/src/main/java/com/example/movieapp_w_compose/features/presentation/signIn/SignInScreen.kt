@@ -49,7 +49,6 @@ fun SignInScreen(
 
 
     LaunchedEffect(Unit) {
-        viewModel.handleAction(SignInUiAction.Load)
         viewModel.submitAction(SignInUiAction.ClearForm)
     }
 
@@ -76,8 +75,6 @@ fun SignInScreen(
         }
     }
 
-    //var email by remember { mutableStateOf("") }
-    // var password by remember { mutableStateOf("") }
     CommonScreen(state = uiState) { signInState ->
 
         Column(

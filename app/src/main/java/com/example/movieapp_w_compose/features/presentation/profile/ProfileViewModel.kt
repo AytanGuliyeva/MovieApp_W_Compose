@@ -29,7 +29,6 @@ class ProfileViewModel @Inject constructor(
     override fun handleAction(action: ProfileUiAction) {
         when (action) {
             is ProfileUiAction.Load -> {
-
                 fetchUserInformation()
             }
 
@@ -55,7 +54,6 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun fetchUserInformation() {
-
         firestore.collection(ConstValues.USERS).document(auth.currentUser!!.uid).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {

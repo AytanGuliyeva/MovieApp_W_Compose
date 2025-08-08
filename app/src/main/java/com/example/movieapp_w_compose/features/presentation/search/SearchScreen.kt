@@ -31,11 +31,8 @@ import com.example.movieapp_w_compose.state.CommonScreen
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel()
 ) {
-
     val state by viewModel.uiStateFlow.collectAsState()
-    LaunchedEffect(Unit) {
-        viewModel.handleAction(SearchUiAction.Load)
-    }
+
     CommonScreen(state = state) { searchState ->
         Column(
             modifier = Modifier
@@ -67,11 +64,11 @@ fun SearchScreen(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = MovieAppTheme.colors.menuColor,
                     unfocusedContainerColor = MovieAppTheme.colors.menuColor,
-                    focusedTextColor = MovieAppTheme.colors.black,
-                    unfocusedTextColor = MovieAppTheme.colors.black,
+                    focusedTextColor = MovieAppTheme.colors.white,
+                    unfocusedTextColor = MovieAppTheme.colors.white,
                     cursorColor = MovieAppTheme.colors.red,
-                    focusedPlaceholderColor = MovieAppTheme.colors.grey,
-                    unfocusedPlaceholderColor = MovieAppTheme.colors.grey
+                    focusedPlaceholderColor = MovieAppTheme.colors.white,
+                    unfocusedPlaceholderColor = MovieAppTheme.colors.white
                 )
 
             )
@@ -81,7 +78,11 @@ fun SearchScreen(
             ) {
                 items(searchState.movies.size) { index ->
                     val movie = searchState.movies[index]
-                    MovieItem(movie = movie)
+                    movie.posterPath?.let {
+                        MovieItem(title = movie.title,
+                            posterPath = it
+                        )
+                    }
                 }
             }
         }

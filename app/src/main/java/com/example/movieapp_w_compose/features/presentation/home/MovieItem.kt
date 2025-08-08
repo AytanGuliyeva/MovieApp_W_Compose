@@ -14,8 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun MovieItem(movie: Movie) {
-    val posterUrl = "https://image.tmdb.org/t/p/w500${movie.poster_path}"
+fun MovieItem(
+    //movie: Movie,
+    title:String,
+    posterPath:String,
+) {
+//    val posterUrl = "https://image.tmdb.org/t/p/w500${movie.posterPath}"
+    val posterUrl = "https://image.tmdb.org/t/p/w500${posterPath}"
 
     Box(
         modifier = Modifier
@@ -26,7 +31,7 @@ fun MovieItem(movie: Movie) {
     ) {
         AsyncImage(
             model = posterUrl,
-            contentDescription = movie.title,
+            contentDescription = title,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )

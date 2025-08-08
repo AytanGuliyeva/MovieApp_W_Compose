@@ -1,5 +1,6 @@
 package com.example.movieapp_w_compose.features.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -24,7 +26,7 @@ fun MovieSlider(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp),
+            .height(300.dp).background(MovieAppTheme.colors.mainColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HorizontalPager(
@@ -40,7 +42,7 @@ fun MovieSlider(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(280.dp),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Fit
             )
         }
 
