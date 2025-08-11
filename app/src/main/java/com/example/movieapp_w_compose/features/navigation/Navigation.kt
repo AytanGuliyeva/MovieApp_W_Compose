@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.example.movieapp_w_compose.features.presentation.changePassword.ChangePassword
+import com.example.movieapp_w_compose.features.presentation.editProfile.EditProfile
 import com.example.movieapp_w_compose.features.presentation.home.HomeScreen
 import com.example.movieapp_w_compose.features.presentation.signIn.SignInScreen
 import com.example.movieapp_w_compose.features.presentation.signUp.SignUpScreen
@@ -33,8 +35,16 @@ fun Navigation() {
                     SignUpScreen(backStack)
                 }
 
-                is MovieDestination.Home ->  NavEntry(destination){
+                is MovieDestination.Home -> NavEntry(destination) {
                     HomeScreen(backStack)
+                }
+
+                is MovieDestination.EditProfile -> NavEntry(destination) {
+                    EditProfile(backStack)
+                }
+
+                is MovieDestination.ChangePassword -> NavEntry(destination) {
+                    ChangePassword(backStack)
                 }
             }
         }

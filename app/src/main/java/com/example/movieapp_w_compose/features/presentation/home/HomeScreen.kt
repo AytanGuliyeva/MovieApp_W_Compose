@@ -18,7 +18,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,6 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.features.bottomNav.TabNavigator
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
+import com.example.movieapp_w_compose.features.presentation.home.components.ChipItem
+import com.example.movieapp_w_compose.features.presentation.home.components.MovieItem
+import com.example.movieapp_w_compose.features.presentation.home.components.MovieSlider
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.LocalAppTypograph
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen

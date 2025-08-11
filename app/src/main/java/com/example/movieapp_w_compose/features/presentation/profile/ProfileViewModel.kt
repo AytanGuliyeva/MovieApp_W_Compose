@@ -2,6 +2,7 @@ package com.example.movieapp_w_compose.features.presentation.profile
 
 import com.example.movieapp_w_compose.base.ConstValues
 import com.example.movieapp_w_compose.data.User
+import com.example.movieapp_w_compose.features.presentation.signIn.SignInSingleEvent
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -48,6 +49,13 @@ class ProfileViewModel @Inject constructor(
                 submitSingleEvent(ProfileSingleEvent.NavigateToLogin)
             }
 
+            is ProfileUiAction.EditProfileClick -> {
+                submitSingleEvent(ProfileSingleEvent.NavigateToEditProfile)
+            }
+
+            is ProfileUiAction.ChangePasswordClick -> {
+                submitSingleEvent(ProfileSingleEvent.NavigateToChangePassword)
+            }
 
 
         }

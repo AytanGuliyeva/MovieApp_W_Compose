@@ -34,6 +34,7 @@ import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.profile.components.LogoutDialog
 import com.example.movieapp_w_compose.features.presentation.profile.components.ProfileItem
+import com.example.movieapp_w_compose.features.presentation.signIn.SignInUiAction
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
 
@@ -49,10 +50,21 @@ fun ProfileScreen(
 
 
     LaunchedEffect(singleEvent) {
-        if (singleEvent == ProfileSingleEvent.NavigateToLogin) {
-            onLogout()
+        when (singleEvent) {
+            ProfileSingleEvent.NavigateToLogin -> {
+                onLogout()
+            }
+            ProfileSingleEvent.NavigateToEditProfile -> {
+                backStack.add(MovieDestination.EditProfile)
+            }
+            ProfileSingleEvent.NavigateToChangePassword -> {
+                backStack.add(MovieDestination.ChangePassword)
+            }
+            null -> Unit
         }
     }
+
+
 
     CommonScreen(state = state) { profileState ->
 
@@ -98,7 +110,7 @@ fun ProfileScreen(
                         .padding(12.dp)
                         .background(Color.Transparent)
                         .clickable {
-                            // edit profile
+                            viewModel.handleAction(ProfileUiAction.EditProfileClick)
                         },
                     tint = Color.Unspecified
                 )
@@ -111,9 +123,22 @@ fun ProfileScreen(
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
-            ProfileItem(iconRes = R.drawable.ic_edit, text = "Edit Profile", onClick = { })
-            ProfileItem(iconRes = R.drawable.ic_passwords, text = "Change Password", onClick = { })
-            ProfileItem(iconRes = R.drawable.ic_language, text = "Language", onClick = { })
+            ProfileItem(
+                iconRes = R.drawable.ic_edit,
+                text = stringResource(R.string.edit_profile),
+                onClick = {viewModel.handleAction(ProfileUiAction.EditProfileClick)
+                })
+            ProfileItem(
+                iconRes = R.drawable.ic_passwords,
+                text = stringResource(R.string.change_password),
+                onClick = {
+                    backStack.add(MovieDestination.ChangePassword)
+                    viewModel.handleAction(ProfileUiAction.ChangePasswordClick)
+                })
+            ProfileItem(
+                iconRes = R.drawable.ic_language,
+                text = stringResource(R.string.language),
+                onClick = { })
 
             Spacer(modifier = Modifier.height(50.dp))
 

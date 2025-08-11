@@ -31,7 +31,7 @@ class SearchViewModel @Inject constructor(
         when(action){
             is SearchUiAction.Load ->{
                 //handleAction(SearchUiAction.MovieResult)
-                getMovies(ConstValues.API_TOKEN)
+                getMovies()
 
             }
 //            is SearchUiAction.MovieResult -> {
@@ -39,7 +39,7 @@ class SearchViewModel @Inject constructor(
 //
 //            }
             is SearchUiAction.SearchResult -> {
-                getSearch(ConstValues.API_TOKEN,currentState().query)
+                getSearch(currentState().query)
             }
             is SearchUiAction.SearchQueryChanged -> {
                 val newState = currentState().copy(query = action.query)
@@ -51,10 +51,10 @@ class SearchViewModel @Inject constructor(
     private fun currentState(): SearchState{
         return (uiStateFlow.value as? UiState.Success)?.data ?: SearchState()
     }
-    private fun getSearch(apiKey : String, query : String){
+    private fun getSearch(query : String){
         viewModelScope.launch {
             try {
-                val response = repository.getSearch(apiKey, query)
+                val response = repository.getSearch(query)
                 if (response.isSuccessful){
                     val movies =  response.body()?.results ?: emptyList()
                     val current  = currentState()
@@ -74,10 +74,10 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-    private fun getMovies(apiKey: String) {
+    private fun getMovies() {
         viewModelScope.launch {
             try {
-                val response = repository.getMovies(apiKey)
+                val response = repository.getMovies()
                 if (response.isSuccessful) {
 
                     val movies = response.body()?.results ?: emptyList()

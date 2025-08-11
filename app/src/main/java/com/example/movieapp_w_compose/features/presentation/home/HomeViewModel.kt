@@ -29,20 +29,20 @@ class HomeViewModel @Inject constructor(
     override fun handleAction(action: HomeUiAction) {
         when (action) {
             is HomeUiAction.Load -> {
-                getNowPlayingMovies(ConstValues.API_TOKEN)
-                getGenres(ConstValues.API_TOKEN)
-                getPopularMovies(ConstValues.API_TOKEN)
-                getTopRatedMovies(ConstValues.API_TOKEN)
+                getNowPlayingMovies()
+                getGenres()
+                getPopularMovies()
+                getTopRatedMovies()
             }
 
-            is HomeUiAction.GenreSelected -> getMoviesByGenre(ConstValues.API_TOKEN, action.genreId)
+            is HomeUiAction.GenreSelected -> getMoviesByGenre( action.genreId)
         }
     }
 
-    private fun getTopRatedMovies(apiKey: String) {
+    private fun getTopRatedMovies() {
         viewModelScope.launch {
             try {
-                val response = repository.getTopRatedMovies(apiKey)
+                val response = repository.getTopRatedMovies()
                 if (response.isSuccessful) {
 
                     val movies = response.body()?.results ?: emptyList()
@@ -61,10 +61,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getPopularMovies(apiKey: String) {
+    private fun getPopularMovies() {
         viewModelScope.launch {
             try {
-                val response = repository.getPopularMovies(apiKey)
+                val response = repository.getPopularMovies()
                 if (response.isSuccessful) {
                     val movies = response.body()?.results ?: emptyList()
                     val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: HomeState()
@@ -82,10 +82,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getMoviesByGenre(apiKey: String, genreId: Int) {
+    private fun getMoviesByGenre( genreId: Int) {
         viewModelScope.launch {
             try {
-                val response = repository.getCategoryMovies(apiKey, genreId)
+                val response = repository.getCategoryMovies( genreId)
                 if (response.isSuccessful) {
                     val movies = response.body()?.results ?: emptyList()
 
@@ -107,10 +107,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getGenres(apiKey: String) {
+    private fun getGenres() {
         viewModelScope.launch {
             try {
-                val response = repository.getGenres(apiKey)
+                val response = repository.getGenres()
                 if (response.isSuccessful) {
                     val genres = response.body()?.genres ?: emptyList()
                     val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: HomeState()
@@ -131,10 +131,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getNowPlayingMovies(apiKey: String) {
+    private fun getNowPlayingMovies() {
         viewModelScope.launch {
             try {
-                val response = repository.getNowPlayingMovies(apiKey)
+                val response = repository.getNowPlayingMovies()
                 if (response.isSuccessful) {
                     val urls = response.body()?.results
                         ?.take(5)

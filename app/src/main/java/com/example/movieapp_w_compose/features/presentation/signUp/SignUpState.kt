@@ -1,5 +1,8 @@
 package com.example.movieapp_w_compose.features.presentation.signUp
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class SignUpState(
     val username: String = "",
     val email: String = "",

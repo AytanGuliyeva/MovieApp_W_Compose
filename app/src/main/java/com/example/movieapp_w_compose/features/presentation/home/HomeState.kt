@@ -1,8 +1,10 @@
 package com.example.movieapp_w_compose.features.presentation.home
 
+import androidx.compose.runtime.Immutable
 import com.example.movieapp_w_compose.retrofit.model.Genre
 import com.example.movieapp_w_compose.retrofit.model.Movie
 
+@Immutable
 data class HomeState(
     val sliderImageUrls:List<String> = emptyList(),
     val genreMovies: List<Movie> = emptyList(),

@@ -25,4 +25,13 @@
     <string name="search_content">Search Content</string>
     <string name="home_content">Home Content</string>
     <string name="log_out">Log out</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="language">Language</string>
+    <string name="back">back</string>
+    <string name="done">Done</string>
+    <string name="alert_change_password">Your password must be at least 6 characters and should include a combination of numbers, letters and special characters (!$@%).</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New password</string>
+    <string name="re_type_new_password">Re-type new password</string>
 </resources>

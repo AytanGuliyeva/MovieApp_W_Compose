@@ -12,40 +12,40 @@ class Repository @Inject constructor(
     private val tmdbApi: TmdbService
 ) {
 
-    suspend fun getPopularMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getPopularMovies("Bearer $apiKey")
+    suspend fun getPopularMovies(): Response<MovieResponse> {
+        return tmdbApi.getPopularMovies()
 
     }
 
-    suspend fun getTopRatedMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getTopRatedMovies("Bearer $apiKey")
+    suspend fun getTopRatedMovies(): Response<MovieResponse> {
+        return tmdbApi.getTopRatedMovies()
     }
 
-    suspend fun getNowPlayingMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getNowPlayingMovies("Bearer $apiKey")
+    suspend fun getNowPlayingMovies(): Response<MovieResponse> {
+        return tmdbApi.getNowPlayingMovies()
     }
 
-    suspend fun getCategoryMovies(apiKey: String, genreId: Int): Response<MovieResponse> {
-        return tmdbApi.getCategoryMovies("Bearer $apiKey", genreId)
+    suspend fun getCategoryMovies(genreId: Int): Response<MovieResponse> {
+        return tmdbApi.getCategoryMovies(genreId)
     }
-    suspend fun getGenres(apiKey: String): Response<GenreResponse> {
-        return tmdbApi.getGenres("Bearer $apiKey")
+    suspend fun getGenres(): Response<GenreResponse> {
+        return tmdbApi.getGenres()
     }
-    suspend fun getMovies(apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getMovies("Bearer $apiKey")
+    suspend fun getMovies(): Response<MovieResponse> {
+        return tmdbApi.getMovies()
     }
-    suspend fun getSearch(apiKey: String, query: String): Response<MovieResponse> {
-        return tmdbApi.searchMovies("Bearer $apiKey", query)
-    }
-
-    suspend fun getVideos(movie_id: Int ,apiKey: String): Response<VideoResponse> {
-        return tmdbApi.getMovieVideos(movie_id,apiKey)
+    suspend fun getSearch(query: String): Response<MovieResponse> {
+        return tmdbApi.searchMovies( query)
     }
 
-    suspend fun getMovieById(movie_id: Int, apiKey: String): Response<MovieResponse> {
-        return tmdbApi.getMovieById(movie_id,apiKey)
+    suspend fun getVideos(movie_id: Int ): Response<VideoResponse> {
+        return tmdbApi.getMovieVideos(movie_id)
     }
-    suspend fun getReviews(movie_id: Int, apiKey: String): Response<ReviewResponse> {
-        return tmdbApi.getMovieReviews(movie_id,apiKey)
+
+    suspend fun getMovieById(movie_id: Int): Response<MovieResponse> {
+        return tmdbApi.getMovieById(movie_id)
+    }
+    suspend fun getReviews(movie_id: Int): Response<ReviewResponse> {
+        return tmdbApi.getMovieReviews(movie_id)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.features.presentation.home
+package com.example.movieapp_w_compose.features.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState

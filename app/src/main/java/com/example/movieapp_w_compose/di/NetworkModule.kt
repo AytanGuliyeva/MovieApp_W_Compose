@@ -1,6 +1,7 @@
 package com.example.movieapp_w_compose.di
 
 import com.example.movieapp_w_compose.base.ConstValues
+import com.example.movieapp_w_compose.retrofit.HttpClient
 import com.example.movieapp_w_compose.retrofit.Repository
 import com.example.movieapp_w_compose.retrofit.TmdbService
 import dagger.Module
@@ -20,6 +21,7 @@ object NetworkModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ConstValues.BASE_URL)
+            .client(HttpClient.okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

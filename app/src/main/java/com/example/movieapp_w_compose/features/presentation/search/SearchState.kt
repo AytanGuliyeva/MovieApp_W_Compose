@@ -1,7 +1,9 @@
 package com.example.movieapp_w_compose.features.presentation.search
 
+import androidx.compose.runtime.Immutable
 import com.example.movieapp_w_compose.retrofit.model.Movie
 
+@Immutable
 data class SearchState(
     val query: String = "",
     val movies: List<Movie> = emptyList(),
