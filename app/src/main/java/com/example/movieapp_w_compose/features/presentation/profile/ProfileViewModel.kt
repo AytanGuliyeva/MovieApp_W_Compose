@@ -1,8 +1,9 @@
 package com.example.movieapp_w_compose.features.presentation.profile
 
-import com.example.movieapp_w_compose.base.ConstValues
+import androidx.lifecycle.viewModelScope
+import com.example.movieapp_w_compose.util.ConstValues
 import com.example.movieapp_w_compose.data.User
-import com.example.movieapp_w_compose.features.presentation.signIn.SignInSingleEvent
+import com.example.movieapp_w_compose.data.local.PicturesDao
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -10,20 +11,18 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     val firestore: FirebaseFirestore,
+    private val picturesDao: PicturesDao
 ) : MviViewModel<
         ProfileState,
         UiState<ProfileState>,
         ProfileUiAction,
         ProfileSingleEvent>() {
-
-    init {
-        handleAction(ProfileUiAction.Load)
-    }
 
     override fun initState(): UiState<ProfileState> = UiState.Loading
 
@@ -57,7 +56,10 @@ class ProfileViewModel @Inject constructor(
                 submitSingleEvent(ProfileSingleEvent.NavigateToChangePassword)
             }
 
-
+            is ProfileUiAction.ChangeLanguage -> {
+                val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: return
+                val newState = currentState.copy(languageOption = action.language)
+                submitState(UiState.Success(newState))            }
         }
     }
 
@@ -67,8 +69,20 @@ class ProfileViewModel @Inject constructor(
                 if (document.exists()) {
                     val user = document.toUser()
                     if (user != null) {
-                        handleAction(ProfileUiAction.LoadUser(user))
-                    } else {
+                        viewModelScope.launch {
+                            val local = picturesDao.getUserPicture(auth.currentUser!!.uid)
+                            val localUri = local?.pictureUri.orEmpty()
+
+                            submitState(
+                                UiState.Success(
+                                    ProfileState(
+                                        user = user,
+                                        localImageUri = localUri
+                                    )
+                                )
+                            )
+                        }
+                    }else {
                         submitState(UiState.Error(" User data is null"))
                     }
                 } else {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MovieApp_W_Compose</string>
+
+    <string name="home">Ana səhifə</string>
+    <string name="search">Axtarış</string>
+    <string name="saved">Saxlanılanlar</string>
+    <string name="downloads">Yükləmələr</string>
+    <string name="me">Mən</string>
+    <string name="welcome_to_the_world_of_movies">Filmlər dünyasına xoş gəldiniz!</string>
+    <string name="sign_in">Daxil ol</string>
+    <string name="login_to_continue_with_the_app">Tətbiqə davam etmək üçün daxil olun</string>
+    <string name="email_address">E-poçt ünvanı</string>
+    <string name="password">Şifrə</string>
+    <string name="forgot_password">Şifrəni unutmusunuz?</string>
+    <string name="or_login_with">Və ya bununla daxil olun</string>
+    <string name="don_t_you_have_an_account">Hesabınız yoxdur?</string>
+    <string name="create_one">Hesab yaradın</string>
+    <string name="create_an_account">Hesab yaradın</string>
+    <string name="please_fill_in_your_accurate_information">Zəhmət olmasa düzgün məlumatlarınızı daxil edin</string>
+    <string name="username">İstifadəçi adı</string>
+    <string name="phone_number">Telefon nömrəsi</string>
+    <string name="sign_up">Qeydiyyatdan keç</string>
+    <string name="you_already_have_an_account">Artıq hesabınız var?</string>
+    <string name="profile_content">Profil məzmunu</string>
+    <string name="search_content">Axtarış məzmunu</string>
+    <string name="home_content">Ana səhifə məzmunu</string>
+    <string name="log_out">Hesabdan çıx</string>
+    <string name="edit_profile">Profili redaktə et</string>
+    <string name="change_password">Şifrəni dəyiş</string>
+    <string name="language">Dil</string>
+    <string name="back">Geri</string>
+    <string name="done">Tamam</string>
+    <string name="alert_change_password">Şifrəniz ən azı 6 simvoldan ibarət olmalı və rəqəmlər, hərflər və xüsusi simvollar (!$@%) kombinasiyasını ehtiva etməlidir.</string>
+    <string name="current_password">Cari şifrə</string>
+    <string name="new_password">Yeni şifrə</string>
+    <string name="re_type_new_password">Yeni şifrəni təkrar yazın</string>
+    <string name="categories">Kateqoriyalar</string>
+    <string name="most_popular">Ən populyar</string>
+    <string name="top_rated">Ən yüksək reytinqli</string>
+    <string name="are_you_sure_you_want_to_log_out">Hesabdan çıxmaq istədiyinizə əminsiniz?</string>
+    <string name="cancel">Ləğv et</string>
+    <string name="looking_for">Axtarış</string>
+
+</resources>

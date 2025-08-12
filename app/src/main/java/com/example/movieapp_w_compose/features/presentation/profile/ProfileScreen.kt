@@ -1,5 +1,6 @@
 package com.example.movieapp_w_compose.features.presentation.profile
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,16 +27,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
+import com.example.movieapp_w_compose.features.presentation.language.LanguageDropdown
+import com.example.movieapp_w_compose.util.LocalHelper
 import com.example.movieapp_w_compose.features.presentation.profile.components.LogoutDialog
 import com.example.movieapp_w_compose.features.presentation.profile.components.ProfileItem
-import com.example.movieapp_w_compose.features.presentation.signIn.SignInUiAction
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
 
@@ -44,22 +49,28 @@ fun ProfileScreen(
     onLogout: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.handleAction(ProfileUiAction.Load)
+    }
 
     val state by viewModel.uiStateFlow.collectAsState()
     val singleEvent by viewModel.singleEventFlow.collectAsState(null)
-
+    val context = LocalContext.current
 
     LaunchedEffect(singleEvent) {
         when (singleEvent) {
             ProfileSingleEvent.NavigateToLogin -> {
                 onLogout()
             }
+
             ProfileSingleEvent.NavigateToEditProfile -> {
                 backStack.add(MovieDestination.EditProfile)
             }
+
             ProfileSingleEvent.NavigateToChangePassword -> {
                 backStack.add(MovieDestination.ChangePassword)
             }
+
             null -> Unit
         }
     }
@@ -91,17 +102,21 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(60.dp))
             Box {
+                val profileImagePainter =
+                    if (profileState.localImageUri.isNotEmpty())
+                        rememberAsyncImagePainter(profileState.localImageUri)
+                    else
+                        painterResource(id = R.drawable.profile_photo_default)
+
                 Image(
-                    painter = painterResource(id = R.drawable.profile_photo_default),
+                    painter = profileImagePainter,
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(100.dp)
                         .clip(CircleShape)
-                        .border(
-                            2.dp, MovieAppTheme.colors.red,
-                            CircleShape
-                        )
+                        .border(2.dp, MovieAppTheme.colors.red, CircleShape)
                 )
+
                 Icon(
                     painter = painterResource(id = R.drawable.ic_edit),
                     contentDescription = "Edit",
@@ -126,7 +141,8 @@ fun ProfileScreen(
             ProfileItem(
                 iconRes = R.drawable.ic_edit,
                 text = stringResource(R.string.edit_profile),
-                onClick = {viewModel.handleAction(ProfileUiAction.EditProfileClick)
+                onClick = {
+                    viewModel.handleAction(ProfileUiAction.EditProfileClick)
                 })
             ProfileItem(
                 iconRes = R.drawable.ic_passwords,
@@ -135,11 +151,19 @@ fun ProfileScreen(
                     backStack.add(MovieDestination.ChangePassword)
                     viewModel.handleAction(ProfileUiAction.ChangePasswordClick)
                 })
-            ProfileItem(
-                iconRes = R.drawable.ic_language,
-                text = stringResource(R.string.language),
-                onClick = { })
+//            ProfileItem(
+//                iconRes = R.drawable.ic_language,
+//                text = stringResource(R.string.language),
+//                onClick = { })
 
+            LanguageDropdown(
+                modifier = Modifier.fillMaxWidth(),
+                selectedLanguage = profileState.languageOption,
+                onOptionSelected = { lang ->
+                    viewModel.handleAction(ProfileUiAction.ChangeLanguage(lang))
+                    LocalHelper.setLocale(context = context, language = lang.tag)
+                    (context as? Activity)?.recreate()
+                })
             Spacer(modifier = Modifier.height(50.dp))
 
 
@@ -166,7 +190,6 @@ fun ProfileScreen(
                     )
                 }
             }
-
         }
     }
 }

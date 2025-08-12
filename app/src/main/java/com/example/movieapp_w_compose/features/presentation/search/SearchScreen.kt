@@ -44,7 +44,7 @@ fun SearchScreen(
                     viewModel.handleAction(SearchUiAction.SearchQueryChanged(it))
                 },
                 placeholder = {
-                    Text("Looking for")
+                    Text(stringResource(R.string.looking_for))
                 },
                 modifier = Modifier
                     .fillMaxWidth()

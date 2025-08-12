@@ -1,7 +1,6 @@
 package com.example.movieapp_w_compose.retrofit
 
-import androidx.constraintlayout.compose.ConstraintSet
-import com.example.movieapp_w_compose.base.ConstValues
+import com.example.movieapp_w_compose.util.ConstValues
 import okhttp3.Interceptor
 import okhttp3.Response
 

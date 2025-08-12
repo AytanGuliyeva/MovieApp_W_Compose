@@ -50,10 +50,6 @@ fun SignUpScreen(
     val uiState by viewModel.uiStateFlow.collectAsState()
     val context = LocalContext.current
 
-//    LaunchedEffect(Unit) {
-//        viewModel.handleAction(SignUpUiAction.Load)
-//    }
-
     LaunchedEffect(Unit) {
         viewModel.singleEventFlow.collect { event ->
             when (event) {
@@ -74,10 +70,6 @@ fun SignUpScreen(
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-//    var username by remember { mutableStateOf("") }
-//    var email by remember { mutableStateOf("") }
-//    var phoneNumber by remember { mutableStateOf("") }
-//    var password by remember { mutableStateOf("") }
 
     CommonScreen(state = uiState) { signUpScreen ->
 

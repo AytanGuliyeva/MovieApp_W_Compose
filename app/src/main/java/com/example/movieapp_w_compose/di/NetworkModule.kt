@@ -1,6 +1,6 @@
 package com.example.movieapp_w_compose.di
 
-import com.example.movieapp_w_compose.base.ConstValues
+import com.example.movieapp_w_compose.util.ConstValues
 import com.example.movieapp_w_compose.retrofit.HttpClient
 import com.example.movieapp_w_compose.retrofit.Repository
 import com.example.movieapp_w_compose.retrofit.TmdbService

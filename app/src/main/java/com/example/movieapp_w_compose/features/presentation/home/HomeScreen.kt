@@ -22,8 +22,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.bottomNav.TabNavigator
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.home.components.ChipItem
@@ -62,7 +64,7 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(start = 10.dp),
-                text = "Categories",
+                text = stringResource(R.string.categories),
                 style = LocalAppTypograph.current.titleMedium,
             )
 
@@ -98,7 +100,7 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(start = 10.dp),
-                text = "Most Popular",
+                text = stringResource(R.string.most_popular),
                 style = LocalAppTypograph.current.titleMedium,
             )
 
@@ -117,7 +119,7 @@ fun HomeScreenContent(viewModel: HomeViewModel = hiltViewModel()) {
                     .padding(horizontal = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text("Top Rated", style = LocalAppTypograph.current.titleMedium)
+                Text(stringResource(R.string.top_rated), style = LocalAppTypograph.current.titleMedium)
             }
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {

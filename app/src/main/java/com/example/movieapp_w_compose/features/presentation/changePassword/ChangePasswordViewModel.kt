@@ -1,6 +1,6 @@
 package com.example.movieapp_w_compose.features.presentation.changePassword
 
-import com.example.movieapp_w_compose.base.ConstValues
+import com.example.movieapp_w_compose.util.ConstValues
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.EmailAuthProvider
@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import javax.annotation.meta.When
 
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(

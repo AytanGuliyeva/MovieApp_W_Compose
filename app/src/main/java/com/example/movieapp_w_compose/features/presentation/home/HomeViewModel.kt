@@ -2,7 +2,6 @@ package com.example.movieapp_w_compose.features.presentation.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp_w_compose.base.ConstValues
 import com.example.movieapp_w_compose.retrofit.Repository
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
