@@ -8,7 +8,6 @@ import com.example.movieapp_w_compose.features.presentation.movieDetail.state.Mo
 import com.example.movieapp_w_compose.retrofit.Repository
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject

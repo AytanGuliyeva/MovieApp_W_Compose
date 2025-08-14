@@ -1,6 +1,5 @@
 package com.example.movieapp_w_compose.state
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

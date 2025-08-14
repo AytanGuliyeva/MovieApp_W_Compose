@@ -3,8 +3,6 @@ package com.example.movieapp_w_compose.features.presentation.movieDetail.state
 import androidx.compose.runtime.Immutable
 import com.example.movieapp_w_compose.data.domain.MovieEntity
 import com.example.movieapp_w_compose.data.domain.ReviewEntity
-import com.example.movieapp_w_compose.data.dto.MovieDTO
-import com.example.movieapp_w_compose.data.dto.ReviewDTO
 
 @Immutable
 data class MovieDetailState(

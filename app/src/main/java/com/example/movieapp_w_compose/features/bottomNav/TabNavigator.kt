@@ -2,7 +2,6 @@ package com.example.movieapp_w_compose.features.bottomNav
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Scaffold
@@ -20,7 +19,6 @@ import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.changePassword.screen.ChangePasswordScreen
 import com.example.movieapp_w_compose.features.presentation.editProfile.screen.EditProfileScreen
 import com.example.movieapp_w_compose.features.presentation.home.screen.HomeScreen
-import com.example.movieapp_w_compose.features.presentation.home.screen.HomeScreenContent
 import com.example.movieapp_w_compose.features.presentation.movieDetail.screen.MovieDetailScreen
 import com.example.movieapp_w_compose.features.presentation.profile.screen.ProfileScreen
 import com.example.movieapp_w_compose.features.presentation.search.screen.SearchScreen

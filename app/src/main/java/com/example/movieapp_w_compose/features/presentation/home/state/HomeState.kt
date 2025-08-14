@@ -3,8 +3,6 @@ package com.example.movieapp_w_compose.features.presentation.home.state
 import androidx.compose.runtime.Immutable
 import com.example.movieapp_w_compose.data.domain.GenreEntity
 import com.example.movieapp_w_compose.data.domain.MovieEntity
-import com.example.movieapp_w_compose.data.dto.GenreDTO
-import com.example.movieapp_w_compose.data.dto.MovieDTO
 
 @Immutable
 data class HomeState(

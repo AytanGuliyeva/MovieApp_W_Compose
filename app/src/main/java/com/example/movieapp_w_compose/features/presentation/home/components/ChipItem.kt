@@ -7,9 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.movieapp_w_compose.data.domain.GenreEntity
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
-import com.example.movieapp_w_compose.data.dto.GenreDTO
 
 @Composable
 fun ChipItem(genre: String, isSelected: Boolean, onClick: (String) -> Unit) {

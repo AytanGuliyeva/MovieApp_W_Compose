@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.movieapp_w_compose.data.domain.ReviewEntity
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
-import com.example.movieapp_w_compose.data.dto.ReviewDTO
 
 @Composable
 fun ReviewItem(item: ReviewEntity) {
