@@ -1,6 +1,7 @@
 package com.example.movieapp_w_compose.retrofit
 
 import com.example.movieapp_w_compose.retrofit.model.GenreResponse
+import com.example.movieapp_w_compose.retrofit.model.Movie
 import com.example.movieapp_w_compose.retrofit.model.MovieResponse
 import com.example.movieapp_w_compose.retrofit.model.ReviewResponse
 import com.example.movieapp_w_compose.retrofit.model.VideoResponse
@@ -27,7 +28,7 @@ interface TmdbService {
 
     @GET("discover/movie")
     suspend fun getCategoryMovies(
-        @Query("with_genres") genreId: Int
+        @Query("with_genres") genreId: Int?
     ): Response<MovieResponse>
 
 
@@ -54,10 +55,16 @@ interface TmdbService {
     @GET("movie/{id}")
     suspend fun getMovieById(
         @Path("id") movieId: Int,
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     @GET("movie/{movie_id}/reviews")
     suspend fun getMovieReviews(
         @Path("movie_id") movieId: Int,
     ): Response<ReviewResponse>
+
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilar(
+        @Path("movie_id") movieId: Int
+    ): Response<MovieResponse>
+
 }

@@ -44,4 +44,8 @@
     <string name="az">az</string>
     <string name="profile_image">Profile Image</string>
     <string name="edit_picture">Edit Picture</string>
+    <string name="hide_trailer">Hide trailer</string>
+    <string name="play">Play</string>
+    <string name="picture">picture</string>
+    <string name="profile_picture">Profile Picture</string>
 </resources>

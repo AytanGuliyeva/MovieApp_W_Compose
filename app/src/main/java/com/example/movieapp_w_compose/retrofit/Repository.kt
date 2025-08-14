@@ -2,6 +2,7 @@ package com.example.movieapp_w_compose.retrofit
 
 
 import com.example.movieapp_w_compose.retrofit.model.GenreResponse
+import com.example.movieapp_w_compose.retrofit.model.Movie
 import com.example.movieapp_w_compose.retrofit.model.MovieResponse
 import com.example.movieapp_w_compose.retrofit.model.ReviewResponse
 import com.example.movieapp_w_compose.retrofit.model.VideoResponse
@@ -25,7 +26,7 @@ class Repository @Inject constructor(
         return tmdbApi.getNowPlayingMovies()
     }
 
-    suspend fun getCategoryMovies(genreId: Int): Response<MovieResponse> {
+    suspend fun getCategoryMovies(genreId: Int?): Response<MovieResponse> {
         return tmdbApi.getCategoryMovies(genreId)
     }
     suspend fun getGenres(): Response<GenreResponse> {
@@ -42,10 +43,13 @@ class Repository @Inject constructor(
         return tmdbApi.getMovieVideos(movie_id)
     }
 
-    suspend fun getMovieById(movie_id: Int): Response<MovieResponse> {
+    suspend fun getMovieById(movie_id: Int): Response<Movie> {
         return tmdbApi.getMovieById(movie_id)
     }
     suspend fun getReviews(movie_id: Int): Response<ReviewResponse> {
         return tmdbApi.getMovieReviews(movie_id)
+    }
+    suspend fun getSimilar(movie_id: Int): Response<MovieResponse> {
+        return tmdbApi.getSimilar(movie_id)
     }
 }

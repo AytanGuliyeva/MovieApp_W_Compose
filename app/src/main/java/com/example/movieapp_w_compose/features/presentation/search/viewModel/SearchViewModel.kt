@@ -1,0 +1,99 @@
+package com.example.movieapp_w_compose.features.presentation.search.viewModel
+
+import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.example.movieapp_w_compose.features.presentation.search.state.SearchSingleEvent
+import com.example.movieapp_w_compose.features.presentation.search.state.SearchState
+import com.example.movieapp_w_compose.features.presentation.search.state.SearchUiAction
+import com.example.movieapp_w_compose.retrofit.Repository
+import com.example.movieapp_w_compose.state.MviViewModel
+import com.example.movieapp_w_compose.state.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val repository: Repository
+) : MviViewModel<
+        SearchState,
+        UiState<SearchState>,
+        SearchUiAction,
+        SearchSingleEvent
+        >() {
+
+    init {
+        handleAction(SearchUiAction.Load)
+    }
+
+    override fun initState(): UiState<SearchState> = UiState.Loading
+
+    override fun handleAction(action: SearchUiAction) {
+        when(action){
+            is SearchUiAction.Load -> {
+                //handleAction(SearchUiAction.MovieResult)
+                getMovies()
+            }
+
+            is SearchUiAction.SearchResult -> {
+                getSearch(currentState().query)
+            }
+            is SearchUiAction.SearchQueryChanged -> {
+                val newState = currentState().copy(query = action.query)
+                submitState(UiState.Success(newState))
+               handleAction(SearchUiAction.SearchResult)
+            }
+            is SearchUiAction.MovieClicked -> {
+                submitSingleEvent(SearchSingleEvent.OpenDetailMovieScreen(action.id))
+            }
+        }
+    }
+    private fun currentState(): SearchState {
+        return (uiStateFlow.value as? UiState.Success)?.data ?: SearchState()
+    }
+    private fun getSearch(query : String){
+        viewModelScope.launch {
+            try {
+                val response = repository.getSearch(query)
+                if (response.isSuccessful){
+                    val movies =  response.body()?.results ?: emptyList()
+                    val current  = currentState()
+                    val newState =  current.copy(movies = movies)
+                    submitState(UiState.Success(newState))
+                    Log.d("SearchViewModel", "Fetched search results: ${response.body()}")
+
+                }
+                else{
+                    Log.e("SearchViewModel", "Error: ${response.code()}")
+
+                }
+            }catch ( e:Exception){
+
+                Log.e("SearchViewModel", "Exception: ${e.message}")
+
+            }
+        }
+    }
+    private fun getMovies() {
+        viewModelScope.launch {
+            try {
+                val response = repository.getMovies()
+                if (response.isSuccessful) {
+
+                    val movies = response.body()?.results ?: emptyList()
+                    val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: SearchState()
+                    val newState =  currentState.copy(
+                        movies= movies
+                    )
+                    submitState(UiState.Success(newState))
+                    Log.d("HomeViewModel", "Fetched popular movies: ${response.body()}")
+                } else {
+                    Log.e("HomeViewModel", "Error: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Exception: ${e.message}")
+
+            }
+        }
+    }
+}

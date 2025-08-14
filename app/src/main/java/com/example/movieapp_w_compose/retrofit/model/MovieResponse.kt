@@ -21,8 +21,6 @@ data class Movie(
     val posterPath: String?,
     @SerializedName("release_date")
     val releaseDate: String,
-    @SerializedName("isSaved")
-    val isSaved: Boolean = false
 )
 
 @Immutable
@@ -34,22 +32,14 @@ data class GenreResponse(
 @Immutable
 data class Genre(
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("name")
-    val name: String
+    val name: String?
 )
 @Immutable
 data class ReviewResponse(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("page")
-    val page: Int,
     @SerializedName("results")
-    val results: List<Review>,
-    @SerializedName("total_pages")
-    val totalPages: Int,
-    @SerializedName("total_results")
-    val totalResults: Int
+    val results: List<Review>
 )
 
 @Immutable
@@ -58,10 +48,18 @@ data class Review(
     val author: String,
     @SerializedName("content")
     val content: String,
-    @SerializedName("created_at")
-    val created_at: String,
     @SerializedName("id")
     val id: String,
-    @SerializedName("url")
-    val url: String
+
+)
+
+@Immutable
+data class GenreEntity(
+    val id: Int,
+    val name: String
+)
+
+fun Genre.toEntity()=GenreEntity(
+    id = id?:0,
+    name = name.orEmpty()
 )

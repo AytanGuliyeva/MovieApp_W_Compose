@@ -9,12 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.retrofit.model.Genre
+import com.example.movieapp_w_compose.retrofit.model.toEntity
 
 @Composable
 fun ChipItem(genre: Genre, isSelected: Boolean, onClick: (Genre) -> Unit) {
     AssistChip(
         onClick = { onClick(genre) },
-        label = { Text(text = genre.name) },
+        label = { Text(text = genre.name.orEmpty()) },
         colors = if (isSelected) {
             AssistChipDefaults.assistChipColors(
                 containerColor = MovieAppTheme.colors.red

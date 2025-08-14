@@ -1,6 +1,6 @@
 package com.example.movieapp_w_compose.retrofit
 
-import com.example.movieapp_w_compose.util.ConstValues
+import com.example.movieapp_w_compose.data.ConstValues
 import okhttp3.Interceptor
 import okhttp3.Response
 
