@@ -157,7 +157,6 @@ fun ProfileScreen(
                 iconRes = R.drawable.ic_passwords,
                 text = stringResource(R.string.change_password),
                 onClick = {
-                    backStack.add(MovieDestination.ChangePassword)
                     viewModel.handleAction(ProfileUiAction.ChangePasswordClick)
                 })
 

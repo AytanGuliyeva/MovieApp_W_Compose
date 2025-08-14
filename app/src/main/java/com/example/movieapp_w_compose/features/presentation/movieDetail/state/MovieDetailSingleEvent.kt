@@ -4,5 +4,4 @@ import com.example.movieapp_w_compose.state.UiSingleEvent
 
 sealed class MovieDetailSingleEvent:UiSingleEvent {
     data object OpenHomeScreen : MovieDetailSingleEvent()
-//    data class Toast(val message: String) : MovieDetailSingleEvent()
 }

@@ -16,9 +16,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -67,12 +65,6 @@ fun MovieDetailScreen(
 ) {
     val uiState by viewModel.uiStateFlow.collectAsState()
 
-    val tabItems = listOf(
-        TabItem("Episode"),
-        TabItem("Similar"),
-        TabItem("About")
-
-    )
     LaunchedEffect(movieId) {
         viewModel.handleAction(MovieDetailUiAction.Load(movieId))
     }
@@ -270,7 +262,7 @@ fun MovieDetailScreen(
                     }
 
                     1 -> {
-                        items(state.similarMovies, key = { it.id }) { movie ->
+                        items(state.similarMovie, key = { it.id }) { movie ->
                             SimilarMovieItem(
                                 title = movie.title,
                                 posterPath = movie.posterPath,
@@ -278,7 +270,7 @@ fun MovieDetailScreen(
                                 onClick = { }
                             )
                         }
-                        if (state.similarMovies.isEmpty()) {
+                        if (state.similarMovie.isEmpty()) {
                             item {
                                 Text(
                                     text = "No similar movies",

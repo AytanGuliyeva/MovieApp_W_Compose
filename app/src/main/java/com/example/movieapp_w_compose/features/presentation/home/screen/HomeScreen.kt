@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp_w_compose.R
-import com.example.movieapp_w_compose.features.bottomNav.TabNavigator
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.home.state.HomeSingleEvent
 import com.example.movieapp_w_compose.features.presentation.home.state.HomeUiAction
@@ -65,7 +64,7 @@ fun HomeScreenContent(
         }
     }
     CommonScreen(state = state) { homeState ->
-        val genreMovies = homeState.genreMovies
+        val genreMovies = homeState.genreMovie
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -126,7 +125,7 @@ fun HomeScreenContent(
             )
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
-                items(homeState.popularMovies) { popularMovies ->
+                items(homeState.popularMovie) { popularMovies ->
                     popularMovies.posterPath?.let {
                         MovieItem(
                             title = popularMovies.title,
@@ -156,7 +155,7 @@ fun HomeScreenContent(
             }
 
             LazyRow(modifier = Modifier.padding(vertical = 10.dp)) {
-                items(homeState.topRatedMovies) { topRatedMovies ->
+                items(homeState.topRatedMovie) { topRatedMovies ->
                     Log.e("home", "HomeScreenContent: $topRatedMovies")
                     topRatedMovies.posterPath?.let {
                         MovieItem(

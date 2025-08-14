@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val auth: FirebaseAuth,
     val firestore: FirebaseFirestore,
     private val repository: Repository
 ) : MviViewModel<MovieDetailState, UiState<MovieDetailState>, MovieDetailUiAction,
@@ -51,22 +50,17 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getVideos(movieId)
-                if (response.isSuccessful) {
-                    val videos = response.body()?.results.orEmpty()
+                    val videos = response?.results.orEmpty()
                     val chosen = videos.firstOrNull { it.site.equals("YouTube", true) && it.type.equals("Trailer", true) }
                         ?: videos.firstOrNull { it.site.equals("YouTube", true) }
                         ?: videos.firstOrNull()
 
                     val url = chosen?.key?.let { "https://www.youtube.com/embed/$it"}
 
-
                     val current = (uiStateFlow.value as? UiState.Success)?.data
                     if (current != null) {
                         submitState(UiState.Success(current.copy(trailerUrl = url)))
                     }
-                } else {
-                    Log.e("Trailer", "API response error: ${response.errorBody()?.string()}")
-                }
             } catch (e: Exception) {
                 Log.e("Trailer", "Error getting trailer: $e")
             }
@@ -79,16 +73,13 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getMovieById(movieId)
-                if (response.isSuccessful) {
-                    val movie = response.body()
+                    val movie = response
                     if (movie == null) {
                         submitState(UiState.Success(MovieDetailState(error = "Empty body")))
                         return@launch
                     }
-
                     val posterUrl =
                         movie.posterPath?.let { "https://image.tmdb.org/t/p/w500$it" }.orEmpty()
-
                     submitState(
                         UiState.Success(
                             MovieDetailState(
@@ -101,9 +92,6 @@ class MovieDetailViewModel @Inject constructor(
                             )
                         )
                     )
-                } else {
-                    submitState(UiState.Success(MovieDetailState(error = "Error ${response.code()}")))
-                }
             } catch (t: Throwable) {
                 submitState(
                     UiState.Success(
@@ -120,17 +108,12 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getReviews(movieId)
-                if (response.isSuccessful) {
-                    val reviews = response.body()?.results ?: emptyList()
+                    val reviews = response?.results ?: emptyList()
                     val current = (uiStateFlow.value as? UiState.Success)?.data
                     if (current != null) {
                         submitState(UiState.Success(current.copy(reviews = reviews)))
                         Log.e("Reviews", "API response : ${reviews}")
-
                     }
-                } else {
-                    Log.e("Reviews", "API response error: ${response.errorBody()?.string()}")
-                }
             } catch (e: Exception) {
                 Log.e("Reviews", "Error getting reviews: $e")
             }
@@ -141,18 +124,13 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getSimilar(movieId)
-                if (response.isSuccessful) {
-                    val movies = response.body()?.results ?: emptyList()
+                    val movies = response?.results ?: emptyList()
                     val currentState =
                         (uiStateFlow.value as? UiState.Success)?.data ?: MovieDetailState()
                     val newState = currentState.copy(
-                        similarMovies = movies
+                        similarMovie = movies
                     )
                     submitState(UiState.Success(newState))
-
-                } else {
-                    Log.e("similarMovies", "API response error: ${response.errorBody()?.string()}")
-                }
             } catch (e: Exception) {
                 Log.e("similarMovies", "Error getting reviews: $e")
             }

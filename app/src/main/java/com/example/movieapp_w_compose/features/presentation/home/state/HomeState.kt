@@ -1,18 +1,20 @@
 package com.example.movieapp_w_compose.features.presentation.home.state
 
 import androidx.compose.runtime.Immutable
-import com.example.movieapp_w_compose.retrofit.model.Genre
-import com.example.movieapp_w_compose.retrofit.model.Movie
+import com.example.movieapp_w_compose.data.domain.GenreEntity
+import com.example.movieapp_w_compose.data.domain.MovieEntity
+import com.example.movieapp_w_compose.data.dto.GenreDTO
+import com.example.movieapp_w_compose.data.dto.MovieDTO
 
 @Immutable
 data class HomeState(
     val sliderImageUrls:List<String> = emptyList(),
-    val genreMovies: List<Movie> = emptyList(),
-    val nowPlayingMovies: List<Movie> = emptyList(),
+    val genreMovie: List<MovieEntity> = emptyList(),
+    val nowPlayingMovie: List<MovieEntity> = emptyList(),
     val selectedGenreId: Int? = null,
-    val genres: List<Genre> = emptyList(),
+    val genres: List<GenreEntity> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
-    val popularMovies : List<Movie> = emptyList(),
-    val topRatedMovies:List<Movie> =  emptyList()
+    val popularMovie : List<MovieEntity> = emptyList(),
+    val topRatedMovie:List<MovieEntity> =  emptyList()
 )

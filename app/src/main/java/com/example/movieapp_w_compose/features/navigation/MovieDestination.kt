@@ -9,7 +9,6 @@ sealed class MovieDestination:NavKey {
     data object Home : MovieDestination()
     data object Search : MovieDestination()
     data object Profile : MovieDestination()
-   // data object Profile:MovieDestination()
     data object EditProfile : MovieDestination()
     data object ChangePassword : MovieDestination()
     data class MovieDetail(val movieId: Int) : MovieDestination()

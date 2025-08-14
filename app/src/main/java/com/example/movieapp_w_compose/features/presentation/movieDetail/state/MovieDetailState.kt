@@ -1,8 +1,10 @@
 package com.example.movieapp_w_compose.features.presentation.movieDetail.state
 
 import androidx.compose.runtime.Immutable
-import com.example.movieapp_w_compose.retrofit.model.Movie
-import com.example.movieapp_w_compose.retrofit.model.Review
+import com.example.movieapp_w_compose.data.domain.MovieEntity
+import com.example.movieapp_w_compose.data.domain.ReviewEntity
+import com.example.movieapp_w_compose.data.dto.MovieDTO
+import com.example.movieapp_w_compose.data.dto.ReviewDTO
 
 @Immutable
 data class MovieDetailState(
@@ -20,9 +22,9 @@ data class MovieDetailState(
     val isTrailerVisible: Boolean = false,
 
 
-    val reviews: List<Review> = emptyList(),
+    val reviews: List<ReviewEntity> = emptyList(),
     val selectedTabIndex: Int = 0,
 
-    val similarMovies : List<Movie> = emptyList(),
+    val similarMovie : List<MovieEntity> = emptyList(),
 
     )

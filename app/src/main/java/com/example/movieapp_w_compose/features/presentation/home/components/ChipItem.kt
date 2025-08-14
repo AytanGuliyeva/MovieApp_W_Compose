@@ -7,12 +7,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.movieapp_w_compose.data.domain.GenreEntity
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
-import com.example.movieapp_w_compose.retrofit.model.Genre
-import com.example.movieapp_w_compose.retrofit.model.toEntity
+import com.example.movieapp_w_compose.data.dto.GenreDTO
 
 @Composable
-fun ChipItem(genre: Genre, isSelected: Boolean, onClick: (Genre) -> Unit) {
+fun ChipItem(genre: GenreEntity, isSelected: Boolean, onClick: (GenreEntity) -> Unit) {
     AssistChip(
         onClick = { onClick(genre) },
         label = { Text(text = genre.name.orEmpty()) },

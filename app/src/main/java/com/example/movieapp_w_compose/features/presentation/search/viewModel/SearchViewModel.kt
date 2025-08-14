@@ -31,7 +31,6 @@ class SearchViewModel @Inject constructor(
     override fun handleAction(action: SearchUiAction) {
         when(action){
             is SearchUiAction.Load -> {
-                //handleAction(SearchUiAction.MovieResult)
                 getMovies()
             }
 
@@ -55,22 +54,12 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getSearch(query)
-                if (response.isSuccessful){
-                    val movies =  response.body()?.results ?: emptyList()
+                    val movies =  response?.results ?: emptyList()
                     val current  = currentState()
-                    val newState =  current.copy(movies = movies)
+                    val newState =  current.copy(movie = movies)
                     submitState(UiState.Success(newState))
-                    Log.d("SearchViewModel", "Fetched search results: ${response.body()}")
-
-                }
-                else{
-                    Log.e("SearchViewModel", "Error: ${response.code()}")
-
-                }
             }catch ( e:Exception){
-
                 Log.e("SearchViewModel", "Exception: ${e.message}")
-
             }
         }
     }
@@ -78,18 +67,12 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getMovies()
-                if (response.isSuccessful) {
-
-                    val movies = response.body()?.results ?: emptyList()
+                 val movies = response?.results ?: emptyList()
                     val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: SearchState()
                     val newState =  currentState.copy(
-                        movies= movies
+                        movie= movies
                     )
                     submitState(UiState.Success(newState))
-                    Log.d("HomeViewModel", "Fetched popular movies: ${response.body()}")
-                } else {
-                    Log.e("HomeViewModel", "Error: ${response.code()}")
-                }
             } catch (e: Exception) {
                 Log.e("HomeViewModel", "Exception: ${e.message}")
 

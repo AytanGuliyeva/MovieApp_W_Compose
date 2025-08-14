@@ -88,8 +88,8 @@ fun SearchScreen(backStack: MutableList<MovieDestination>,
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.padding(top = 10.dp)
             ) {
-                items(searchState.movies.size) { index ->
-                    val movie = searchState.movies[index]
+                items(searchState.movie.size) { index ->
+                    val movie = searchState.movie[index]
                     movie.posterPath?.let {
                         MovieItem(title = movie.title,
                             posterPath = it,
