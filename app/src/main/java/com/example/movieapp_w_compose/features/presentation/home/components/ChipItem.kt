@@ -12,10 +12,10 @@ import com.example.movieapp_w_compose.features.presentation.theme.customTheme.Mo
 import com.example.movieapp_w_compose.data.dto.GenreDTO
 
 @Composable
-fun ChipItem(genre: GenreEntity, isSelected: Boolean, onClick: (GenreEntity) -> Unit) {
+fun ChipItem(genre: String, isSelected: Boolean, onClick: (String) -> Unit) {
     AssistChip(
         onClick = { onClick(genre) },
-        label = { Text(text = genre.name.orEmpty()) },
+        label = { Text(text = genre) },
         colors = if (isSelected) {
             AssistChipDefaults.assistChipColors(
                 containerColor = MovieAppTheme.colors.red

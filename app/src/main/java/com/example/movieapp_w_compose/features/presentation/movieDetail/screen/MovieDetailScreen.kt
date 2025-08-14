@@ -173,7 +173,10 @@ fun MovieDetailScreen(
                         selectedTabIndex = state.selectedTabIndex,
                         modifier = Modifier.background(MovieAppTheme.colors.menuColor)
                     ) {
-                        listOf("Episode", "Similar", "About").forEachIndexed { index, title ->
+                        listOf(
+                            stringResource(R.string.episode),
+                            stringResource(R.string.similar), stringResource(R.string.about)
+                        ).forEachIndexed { index, title ->
                             Tab(
                                 selected = index == state.selectedTabIndex,
                                 onClick = {
@@ -223,7 +226,7 @@ fun MovieDetailScreen(
                                             verticalArrangement = Arrangement.Top
                                         ) {
                                             Text(
-                                                text = "Trailer",
+                                                text = stringResource(R.string.trailer),
                                                 color = MovieAppTheme.colors.white,
                                                 style = MovieAppTheme.typograph.titleMedium
                                             )
@@ -241,7 +244,7 @@ fun MovieDetailScreen(
                         }
                         item {
                             Text(
-                                text = "Reviews",
+                                text = stringResource(R.string.reviews),
                                 style = MovieAppTheme.typograph.titleMedium,
                                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)
                             )
@@ -252,7 +255,7 @@ fun MovieDetailScreen(
                         if (state.reviews.isEmpty()) {
                             item {
                                 Text(
-                                    text = "No Reviews",
+                                    text = stringResource(R.string.no_reviews),
                                     modifier = Modifier.padding(16.dp),
                                     style = MovieAppTheme.typograph.subtitleMedium,
                                     color = MovieAppTheme.colors.red
@@ -273,7 +276,7 @@ fun MovieDetailScreen(
                         if (state.similarMovie.isEmpty()) {
                             item {
                                 Text(
-                                    text = "No similar movies",
+                                    text = stringResource(R.string.no_similar_movies),
                                     modifier = Modifier.padding(16.dp),
                                     style = MovieAppTheme.typograph.subtitleMedium,
                                     color = MovieAppTheme.colors.red
@@ -293,19 +296,6 @@ fun MovieDetailScreen(
                     }
 
                 }
-                /* when (state.selectedTabIndex) {
-                     0 -> {
-                         item { EpisodeTab() }
-                     }
-
-                     1 -> {
-                         item { SimilarTab() }
-                     }
-
-                     2 -> {
-                         item { AboutTab(overview = state.overview) }
-                     }
-                 }*/
                 item { Spacer(Modifier.height(24.dp)) }
             }
         }

@@ -40,7 +40,7 @@
     <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
     <string name="cancel">Cancel</string>
     <string name="looking_for">Looking for</string>
-    <string name="eng">eng</string>
+    <string name="en">en</string>
     <string name="az">az</string>
     <string name="profile_image">Profile Image</string>
     <string name="edit_picture">Edit Picture</string>
@@ -48,4 +48,11 @@
     <string name="play">Play</string>
     <string name="picture">picture</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="no_similar_movies">No similar movies</string>
+    <string name="no_reviews">No Reviews</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailer">Trailer</string>
+    <string name="episode">Episode</string>
+    <string name="similar">Similar</string>
+    <string name="about">About</string>
 </resources>

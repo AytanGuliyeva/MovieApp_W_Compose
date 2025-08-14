@@ -27,7 +27,7 @@ import com.example.movieapp_w_compose.features.presentation.theme.customTheme.Mo
 @Composable
 fun LanguageDropdown(
     modifier: Modifier = Modifier,
-    selectedLanguage: Languages,
+    selectedLanguage: String,
     onOptionSelected: (option: Languages) -> Unit
 ) {
 
@@ -53,7 +53,7 @@ fun LanguageDropdown(
                 style = MovieAppTheme.typograph.calloutMedium
             )
             Text(
-                text = stringResource(id = selectedLanguage.label),
+                text = selectedLanguage,
                 style = MovieAppTheme.typograph.subtitleMedium,
                 color = MovieAppTheme.colors.red
             )

@@ -94,7 +94,7 @@ fun HomeScreenContent(
                 homeState.genres.forEach { genre ->
                     val isSelected = genre.id == homeState.selectedGenreId
                     ChipItem(
-                        genre = genre,
+                        genre = genre.name,
                         isSelected = isSelected,
                         onClick = {
                             viewModel.handleAction(HomeUiAction.GenreSelected(genre.id))

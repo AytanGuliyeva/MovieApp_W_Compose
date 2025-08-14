@@ -1,9 +1,11 @@
 package com.example.movieapp_w_compose.features.presentation.profile.viewModel
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp_w_compose.data.ConstValues
 import com.example.movieapp_w_compose.data.User
 import com.example.movieapp_w_compose.data.local.PicturesDao
+import com.example.movieapp_w_compose.features.presentation.language.components.LanguagePrefs
 import com.example.movieapp_w_compose.features.presentation.profile.state.ProfileSingleEvent
 import com.example.movieapp_w_compose.features.presentation.profile.state.ProfileState
 import com.example.movieapp_w_compose.features.presentation.profile.state.ProfileUiAction
@@ -13,12 +15,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.time.delay
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    @ApplicationContext private val appContext: Context,
     private val auth: FirebaseAuth,
     val firestore: FirebaseFirestore,
     private val picturesDao: PicturesDao
@@ -61,6 +65,7 @@ class ProfileViewModel @Inject constructor(
             }
 
             is ProfileUiAction.ChangeLanguage -> {
+                LanguagePrefs.save(appContext, action.language.tag)
                 val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: return
                 val newState = currentState.copy(languageOption = action.language)
                 submitState(UiState.Success(newState))

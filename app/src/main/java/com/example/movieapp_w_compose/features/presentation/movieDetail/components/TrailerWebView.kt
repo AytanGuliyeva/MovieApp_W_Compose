@@ -1,11 +1,13 @@
 package com.example.movieapp_w_compose.features.presentation.movieDetail.components
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun TrailerWebView(
     url: String,

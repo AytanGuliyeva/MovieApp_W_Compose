@@ -41,5 +41,19 @@
     <string name="are_you_sure_you_want_to_log_out">Hesabdan çıxmaq istədiyinizə əminsiniz?</string>
     <string name="cancel">Ləğv et</string>
     <string name="looking_for">Axtarış</string>
-
+    <string name="en">en</string>
+    <string name="az">az</string>
+    <string name="profile_image">Profil şəkil</string>
+    <string name="edit_picture">Redaktə et</string>
+    <string name="hide_trailer">Fragmenti gizlə</string>
+    <string name="play">Başlat</string>
+    <string name="picture">Şəkil</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="no_similar_movies">Oxşar film yoxdur</string>
+    <string name="no_reviews">Yorum yoxdur</string>
+    <string name="reviews">Yorumlar</string>
+    <string name="trailer">Fragment</string>
+    <string name="episode">Epizod</string>
+    <string name="similar">Oxşar</string>
+    <string name="about">Haqqında</string>
 </resources>

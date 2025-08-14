@@ -14,6 +14,4 @@ interface PicturesDao {
     @Query("SELECT * FROM pictures WHERE userId = :userId LIMIT 1")
     suspend fun getUserPicture(userId: String): PicturesEntity?
 
-    @Query("DELETE FROM pictures WHERE userId = :userId")
-    suspend fun deleteUserPicture(userId: String)
 }

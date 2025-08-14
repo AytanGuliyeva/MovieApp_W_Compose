@@ -37,15 +37,14 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.navigation.MovieDestination
 import com.example.movieapp_w_compose.features.presentation.language.components.LanguageDropdown
+import com.example.movieapp_w_compose.features.presentation.language.components.LanguagePrefs
 import com.example.movieapp_w_compose.features.presentation.profile.state.ProfileSingleEvent
 import com.example.movieapp_w_compose.features.presentation.profile.state.ProfileUiAction
 import com.example.movieapp_w_compose.features.presentation.profile.viewModel.ProfileViewModel
-import com.example.movieapp_w_compose.util.LocalHelper
 import com.example.movieapp_w_compose.features.presentation.profile.components.LogoutDialog
 import com.example.movieapp_w_compose.features.presentation.profile.components.ProfileItem
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
-import kotlinx.coroutines.delay
 
 @Composable
 fun ProfileScreen(
@@ -60,6 +59,7 @@ fun ProfileScreen(
     val state by viewModel.uiStateFlow.collectAsState()
     val singleEvent by viewModel.singleEventFlow.collectAsState(null)
     val context = LocalContext.current
+    val savedTag = LanguagePrefs.get(context, default = "en")
 
     LaunchedEffect(singleEvent) {
         when (singleEvent) {
@@ -76,8 +76,10 @@ fun ProfileScreen(
             }
 
            is  ProfileSingleEvent.NavigateToSplash->{
-                LocalHelper.setLocale(context = context, language = (singleEvent as ProfileSingleEvent.NavigateToSplash).lang.tag)
-                (context as? Activity)?.recreate()
+//                LocalHelper.setLocale(context = context, language = (singleEvent as ProfileSingleEvent.NavigateToSplash).lang.tag)
+//                (context as? Activity)?.recreate()
+                   (context as? Activity)?.recreate()
+
             }
 
             null -> Unit
@@ -162,7 +164,7 @@ fun ProfileScreen(
 
             LanguageDropdown(
                 modifier = Modifier.fillMaxWidth(),
-                selectedLanguage = profileState.languageOption,
+                selectedLanguage = savedTag,
                 onOptionSelected = { lang ->
                     viewModel.handleAction(ProfileUiAction.ChangeLanguage(lang))
                 })

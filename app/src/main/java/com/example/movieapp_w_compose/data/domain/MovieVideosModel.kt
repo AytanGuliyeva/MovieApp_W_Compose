@@ -1,8 +1,6 @@
 package com.example.movieapp_w_compose.data.domain
 
 import androidx.compose.runtime.Immutable
-import com.example.movieapp_w_compose.data.dto.VideoDTO
-import com.google.gson.annotations.SerializedName
 
 @Immutable
 data class VideoResponseEntity(
