@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.di
+package com.example.movieapp_w_compose.di.module
 
 import com.example.movieapp_w_compose.data.ConstValues
 import com.example.movieapp_w_compose.retrofit.HttpClient

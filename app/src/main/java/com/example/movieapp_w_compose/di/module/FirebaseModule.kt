@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.di
+package com.example.movieapp_w_compose.di.module
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

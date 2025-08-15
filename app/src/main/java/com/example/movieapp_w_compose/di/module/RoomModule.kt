@@ -1,4 +1,4 @@
-package com.example.movieapp_w_compose.di
+package com.example.movieapp_w_compose.di.module
 
 import android.content.Context
 import androidx.room.Room

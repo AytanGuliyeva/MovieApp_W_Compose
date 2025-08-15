@@ -1,11 +1,11 @@
 package com.example.movieapp_w_compose.retrofit
 
 
-import com.example.movieapp_w_compose.data.domain.GenreResponseEntity
-import com.example.movieapp_w_compose.data.domain.MovieEntity
-import com.example.movieapp_w_compose.data.domain.MovieResponseEntity
-import com.example.movieapp_w_compose.data.domain.ReviewResponseEntity
-import com.example.movieapp_w_compose.data.domain.VideoResponseEntity
+import com.example.movieapp_w_compose.domain.model.GenreResponseEntity
+import com.example.movieapp_w_compose.domain.model.MovieEntity
+import com.example.movieapp_w_compose.domain.model.MovieResponseEntity
+import com.example.movieapp_w_compose.domain.model.ReviewResponseEntity
+import com.example.movieapp_w_compose.domain.model.VideoResponseEntity
 import com.example.movieapp_w_compose.data.dto.toGenreResponseEntity
 import com.example.movieapp_w_compose.data.dto.toMovieEntity
 import com.example.movieapp_w_compose.data.dto.toMovieResponseEntity

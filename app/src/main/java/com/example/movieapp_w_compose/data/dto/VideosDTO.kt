@@ -1,7 +1,7 @@
 package com.example.movieapp_w_compose.data.dto
 
 import androidx.compose.runtime.Immutable
-import com.example.movieapp_w_compose.data.domain.VideoEntity
+import com.example.movieapp_w_compose.domain.model.VideoEntity
 import com.google.gson.annotations.SerializedName
 
 @Immutable

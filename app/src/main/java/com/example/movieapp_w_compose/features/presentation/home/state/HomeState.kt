@@ -1,8 +1,8 @@
 package com.example.movieapp_w_compose.features.presentation.home.state
 
 import androidx.compose.runtime.Immutable
-import com.example.movieapp_w_compose.data.domain.GenreEntity
-import com.example.movieapp_w_compose.data.domain.MovieEntity
+import com.example.movieapp_w_compose.domain.model.GenreEntity
+import com.example.movieapp_w_compose.domain.model.MovieEntity
 
 @Immutable
 data class HomeState(

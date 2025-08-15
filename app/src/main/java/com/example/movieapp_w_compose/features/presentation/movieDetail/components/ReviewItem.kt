@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.movieapp_w_compose.data.domain.ReviewEntity
+import com.example.movieapp_w_compose.domain.model.ReviewEntity
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 
 @Composable
