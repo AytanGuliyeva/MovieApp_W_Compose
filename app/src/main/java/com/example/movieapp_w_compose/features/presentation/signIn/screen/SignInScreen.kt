@@ -38,6 +38,7 @@ import com.example.movieapp_w_compose.features.presentation.signIn.state.SignInU
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 import com.example.movieapp_w_compose.state.CommonScreen
 import com.example.movieapp_w_compose.state.UiState
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun SignInScreen(
@@ -46,10 +47,17 @@ fun SignInScreen(
 ) {
     val uiState by viewModel.uiStateFlow.collectAsState()
     val context = LocalContext.current
-
+    val auth = FirebaseAuth.getInstance()
 
     LaunchedEffect(Unit) {
         viewModel.submitAction(SignInUiAction.ClearForm)
+        if (auth.currentUser != null) {
+            backStack.clear()
+            backStack.add(MovieDestination.Home)
+        } else {
+            backStack.clear()
+            backStack.add(MovieDestination.SignIn)
+        }
     }
 
 

@@ -47,48 +47,41 @@ android {
 }
 
 dependencies {
-
-//    implementation("androidx.compose.material:material-icons-extended:1.8.3")
+    //splash screen
+    implementation(libs.core.splashscreen)
 
     //Room
-    implementation("androidx.room:room-runtime:2.7.2")
-    implementation("androidx.room:room-ktx:2.7.2")
-    kapt("androidx.room:room-compiler:2.7.2")
-
-    //glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
-
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
     // pager
-    implementation("com.google.accompanist:accompanist-pager:0.34.0")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+    implementation(libs.accompanist.pager.v0340)
+    implementation(libs.accompanist.pager.indicators.v0340)
 
 
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
 
 
     //coil
-    // build.gradle (app-level)
-    implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("com.google.accompanist:accompanist-pager:0.36.0")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
+    implementation(libs.coil.compose)
+    implementation(libs.google.accompanist.pager)
+    implementation(libs.google.accompanist.pager.indicators)
 
     //compose_hilt
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.7.0")
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.kotlinx.metadata.jvm)
 
     //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.57")
-    implementation("androidx.activity:activity:1.10.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.57")
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.activity)
+    kapt(libs.hilt.android.compiler)
 
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
-
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
@@ -101,9 +94,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
 
     //viewmodel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.material3)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

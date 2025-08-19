@@ -3,6 +3,7 @@ package com.example.movieapp_w_compose.features.presentation.signIn.viewModel
 import com.example.movieapp_w_compose.features.presentation.signIn.state.SignInSingleEvent
 import com.example.movieapp_w_compose.features.presentation.signIn.state.SignInState
 import com.example.movieapp_w_compose.features.presentation.signIn.state.SignInUiAction
+import com.example.movieapp_w_compose.features.presentation.signUp.state.SignUpState
 import com.example.movieapp_w_compose.state.MviViewModel
 import com.example.movieapp_w_compose.state.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -18,36 +19,28 @@ class SignInViewModel @Inject constructor(private val auth: FirebaseAuth) : MviV
         >() {
 
     init {
-        handleAction(SignInUiAction.Load)
+//        if (auth.currentUser != null){
+//            backStack.clear()
+//            backStack.add(MovieDestination.Home)
+//        }else{
+//            backStack.clear()
+//            backStack.add(MovieDestination.SignIn)
+//        }
     }
 
-    override fun initState(): UiState<SignInState> = UiState.Loading
+
+    override fun initState(): UiState<SignInState> = UiState.Success(SignInState())
 
     override fun handleAction(action: SignInUiAction) {
         val currentState = (uiStateFlow.value as? UiState.Success)?.data ?: SignInState()
 
         when (action) {
-            is SignInUiAction.Load -> {
-                submitState(UiState.Loading)
-                submitState(
-                    UiState.Success(
-                        currentState.copy(
-                            isLoading = true,
-                            errorMessage = null
-                        )
-                    )
-                )
-
-        }
             is SignInUiAction.CreateOneClick -> {
                 submitSingleEvent(SignInSingleEvent.OpenSignUpScreen)
             }
-
             is SignInUiAction.SignInClick -> {
                 signWithEmail(action.email, action.password)
             }
-
-
             is SignInUiAction.EmailChanged -> {
                 submitState(UiState.Success(currentState.copy(email = action.value)))
             }
@@ -57,8 +50,6 @@ class SignInViewModel @Inject constructor(private val auth: FirebaseAuth) : MviV
             is SignInUiAction.ClearForm -> {
                 submitState(UiState.Success(SignInState()))
             }
-
-
         }
     }
 

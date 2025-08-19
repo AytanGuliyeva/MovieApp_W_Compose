@@ -8,6 +8,4 @@ data class SignUpState(
     val email: String = "",
     val phone: String = "",
     val password: String = "",
-    val isLoading: Boolean = false,
-    val errorMessage: String? = null
 )

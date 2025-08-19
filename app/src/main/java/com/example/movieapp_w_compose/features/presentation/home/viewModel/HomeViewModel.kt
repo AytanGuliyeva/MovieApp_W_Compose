@@ -15,12 +15,10 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: Repository
-) : MviViewModel<
-        HomeState,
+) : MviViewModel<HomeState,
         UiState<HomeState>,
         HomeUiAction,
-        HomeSingleEvent
-        >() {
+        HomeSingleEvent>() {
 
     init {
         handleAction(HomeUiAction.Load)

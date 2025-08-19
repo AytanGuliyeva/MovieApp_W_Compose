@@ -5,7 +5,6 @@ import com.example.movieapp_w_compose.state.UiAction
 
 
 sealed class SignUpUiAction :UiAction{
-    data object Load : SignUpUiAction()
     data object BackToSignInClick : SignUpUiAction()
     data class SignUpClick (val input :User): SignUpUiAction()
     data class UsernameChanged(val value: String) : SignUpUiAction()

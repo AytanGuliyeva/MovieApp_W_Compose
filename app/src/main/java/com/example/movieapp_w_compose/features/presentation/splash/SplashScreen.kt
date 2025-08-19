@@ -23,6 +23,8 @@ import com.example.movieapp_w_compose.features.presentation.theme.customTheme.Mo
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
+
+/*
 @Composable
 fun SplashScreen(backStack: SnapshotStateList<MovieDestination>){
 
@@ -57,4 +59,4 @@ fun SplashScreen(backStack: SnapshotStateList<MovieDestination>){
             )
         }
     }
-}
+}*/

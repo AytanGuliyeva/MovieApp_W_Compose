@@ -7,6 +7,4 @@ import com.example.movieapp_w_compose.domain.model.MovieEntity
 data class SearchState(
     val query: String = "",
     val movie: List<MovieEntity> = emptyList(),
-    val isLoading: Boolean = false,
-    val errorMessage: String? = null
 )

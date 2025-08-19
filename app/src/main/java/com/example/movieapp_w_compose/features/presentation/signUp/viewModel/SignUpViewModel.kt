@@ -25,19 +25,12 @@ class SignUpViewModel @Inject constructor(
 
     private var latestUserInput: User? = null
 
-    init {
-        handleAction(SignUpUiAction.Load)
-    }
-    override fun initState(): UiState<SignUpState> = UiState.Loading
+    override fun initState(): UiState<SignUpState> = UiState.Success(SignUpState())
 
     override fun handleAction(action: SignUpUiAction) {
         val current = (uiStateFlow.value as? UiState.Success)?.data ?: SignUpState()
 
         when (action) {
-            is SignUpUiAction.Load -> {
-                submitState(UiState.Loading)
-                submitState(UiState.Success(current.copy(isLoading = true, errorMessage = null)))
-            }
 
             is SignUpUiAction.BackToSignInClick -> {
                 submitSingleEvent(SignUpSingleEvent.OpenSignInScreen)

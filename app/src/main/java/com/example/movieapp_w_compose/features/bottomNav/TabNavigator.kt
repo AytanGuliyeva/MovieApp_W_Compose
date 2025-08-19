@@ -24,12 +24,11 @@ import com.example.movieapp_w_compose.features.presentation.profile.screen.Profi
 import com.example.movieapp_w_compose.features.presentation.search.screen.SearchScreen
 import com.example.movieapp_w_compose.features.presentation.signIn.screen.SignInScreen
 import com.example.movieapp_w_compose.features.presentation.signUp.screen.SignUpScreen
-import com.example.movieapp_w_compose.features.presentation.splash.SplashScreen
 
 @Composable
 fun TabNavigator() {
     var selectedItem by remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }
-    val backStack = remember { mutableStateListOf<MovieDestination>(MovieDestination.SplashScreen) }
+    val backStack = remember { mutableStateListOf<MovieDestination>(MovieDestination.SignIn) }
     val currentDest = backStack.lastOrNull()
     val showBottomBar =
         currentDest is MovieDestination.Home ||
@@ -46,7 +45,6 @@ fun TabNavigator() {
     }
 
     Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing,
         bottomBar = {
             if (showBottomBar) {
                 BottomNavigationBar(
@@ -70,9 +68,9 @@ fun TabNavigator() {
                 onBack = { backStack.removeLastOrNull() },
                 entryProvider = { destination ->
                     when (destination) {
-                        is MovieDestination.SplashScreen -> NavEntry(destination) {
-                            SplashScreen(backStack)
-                        }
+//                        is MovieDestination.SplashScreen -> NavEntry(destination) {
+//                            SplashScreen(backStack)
+//                        }
 
                         is MovieDestination.SignIn -> NavEntry(destination) {
                             SignInScreen(backStack)

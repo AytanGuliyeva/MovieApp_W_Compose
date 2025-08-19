@@ -7,9 +7,7 @@ import com.example.movieapp_w_compose.data.Languages
 @Immutable
 data class ProfileState (
     val user: User? = null,
-    val isLoading: Boolean = false,
     val localImageUri: String = "",
-    val errorMessage: String? = null,
     val isLogoutDialogVisible: Boolean = false,
     val languageOption: Languages = Languages.EN
 )

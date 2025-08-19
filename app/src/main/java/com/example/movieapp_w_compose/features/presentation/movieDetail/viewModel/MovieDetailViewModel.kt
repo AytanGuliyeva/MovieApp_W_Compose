@@ -36,6 +36,7 @@ class MovieDetailViewModel @Inject constructor(
                 val current = (uiStateFlow.value as? UiState.Success)?.data ?: return
                 submitState(UiState.Success(current.copy(selectedTabIndex = action.index)))
             }
+
             MovieDetailUiAction.PlayToggle -> {
                 val current = (uiStateFlow.value as? UiState.Success)?.data ?: return
                 submitState(UiState.Success(current.copy(isTrailerVisible = !current.isTrailerVisible)))
@@ -49,17 +50,22 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getVideos(movieId)
-                    val videos = response?.results.orEmpty()
-                    val chosen = videos.firstOrNull { it.site.equals("YouTube", true) && it.type.equals("Trailer", true) }
-                        ?: videos.firstOrNull { it.site.equals("YouTube", true) }
-                        ?: videos.firstOrNull()
+                val videos = response?.results.orEmpty()
+                val chosen = videos.firstOrNull {
+                    it.site.equals(
+                        "YouTube",
+                        true
+                    ) && it.type.equals("Trailer", true)
+                }
+                    ?: videos.firstOrNull { it.site.equals("YouTube", true) }
+                    ?: videos.firstOrNull()
 
-                    val url = chosen?.key?.let { "https://www.youtube.com/embed/$it"}
+                val url = chosen?.key?.let { "https://www.youtube.com/embed/$it" }
 
-                    val current = (uiStateFlow.value as? UiState.Success)?.data
-                    if (current != null) {
-                        submitState(UiState.Success(current.copy(trailerUrl = url)))
-                    }
+                val current = (uiStateFlow.value as? UiState.Success)?.data
+                if (current != null) {
+                    submitState(UiState.Success(current.copy(trailerUrl = url)))
+                }
             } catch (e: Exception) {
                 Log.e("Trailer", "Error getting trailer: $e")
             }
@@ -72,25 +78,25 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getMovieById(movieId)
-                    val movie = response
-                    if (movie == null) {
-                        submitState(UiState.Success(MovieDetailState(error = "Empty body")))
-                        return@launch
-                    }
-                    val posterUrl =
-                        movie.posterPath?.let { "https://image.tmdb.org/t/p/w500$it" }.orEmpty()
-                    submitState(
-                        UiState.Success(
-                            MovieDetailState(
-                                isLoading = false,
-                                movieId = movie.id,
-                                title = movie.title,
-                                year = movie.releaseDate,
-                                overview = movie.overview,
-                                posterUrl = posterUrl
-                            )
+                val movie = response
+                if (movie == null) {
+                    submitState(UiState.Success(MovieDetailState(error = "Empty body")))
+                    return@launch
+                }
+                val posterUrl =
+                    movie.posterPath?.let { "https://image.tmdb.org/t/p/w500$it" }.orEmpty()
+                submitState(
+                    UiState.Success(
+                        MovieDetailState(
+                            isLoading = false,
+                            movieId = movie.id,
+                            title = movie.title,
+                            year = movie.releaseDate,
+                            overview = movie.overview,
+                            posterUrl = posterUrl
                         )
                     )
+                )
             } catch (t: Throwable) {
                 submitState(
                     UiState.Success(
@@ -107,12 +113,12 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getReviews(movieId)
-                    val reviews = response?.results ?: emptyList()
-                    val current = (uiStateFlow.value as? UiState.Success)?.data
-                    if (current != null) {
-                        submitState(UiState.Success(current.copy(reviews = reviews)))
-                        Log.e("Reviews", "API response : ${reviews}")
-                    }
+                val reviews = response?.results ?: emptyList()
+                val current = (uiStateFlow.value as? UiState.Success)?.data
+                if (current != null) {
+                    submitState(UiState.Success(current.copy(reviews = reviews)))
+                    Log.e("Reviews", "API response : ${reviews}")
+                }
             } catch (e: Exception) {
                 Log.e("Reviews", "Error getting reviews: $e")
             }
@@ -123,13 +129,13 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = repository.getSimilar(movieId)
-                    val movies = response?.results ?: emptyList()
-                    val currentState =
-                        (uiStateFlow.value as? UiState.Success)?.data ?: MovieDetailState()
-                    val newState = currentState.copy(
-                        similarMovie = movies
-                    )
-                    submitState(UiState.Success(newState))
+                val movies = response?.results ?: emptyList()
+                val currentState =
+                    (uiStateFlow.value as? UiState.Success)?.data ?: MovieDetailState()
+                val newState = currentState.copy(
+                    similarMovie = movies
+                )
+                submitState(UiState.Success(newState))
             } catch (e: Exception) {
                 Log.e("similarMovies", "Error getting reviews: $e")
             }

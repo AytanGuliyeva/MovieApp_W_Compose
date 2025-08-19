@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.MovieApp_W_Compose" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MovieApp_W_Compose" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_movie_app</item>
+        <item name="windowSplashScreenBackground">#FFE10D33</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionBar" tools:ignore="DuplicateDefinition">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowNoTitle" tools:ignore="DuplicateDefinition">true</item>
+    </style>
 </resources>
