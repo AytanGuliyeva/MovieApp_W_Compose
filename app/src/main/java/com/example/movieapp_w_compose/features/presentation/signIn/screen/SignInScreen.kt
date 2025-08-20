@@ -47,18 +47,7 @@ fun SignInScreen(
 ) {
     val uiState by viewModel.uiStateFlow.collectAsState()
     val context = LocalContext.current
-    val auth = FirebaseAuth.getInstance()
 
-    LaunchedEffect(Unit) {
-        viewModel.submitAction(SignInUiAction.ClearForm)
-        if (auth.currentUser != null) {
-            backStack.clear()
-            backStack.add(MovieDestination.Home)
-        } else {
-            backStack.clear()
-            backStack.add(MovieDestination.SignIn)
-        }
-    }
 
 
     LaunchedEffect(Unit) {

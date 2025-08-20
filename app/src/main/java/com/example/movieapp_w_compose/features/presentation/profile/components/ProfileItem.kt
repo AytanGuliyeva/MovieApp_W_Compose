@@ -15,16 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movieapp_w_compose.R
 import com.example.movieapp_w_compose.features.presentation.theme.customTheme.MovieAppTheme
 
 @Composable
 fun ProfileItem(
+    modifier: Modifier = Modifier,
     iconRes: Int,
     text: String,
     onClick: () -> Unit,
-    textStyle: TextStyle = MovieAppTheme.typograph.calloutMedium,
-    modifier: Modifier = Modifier
+    textStyle: TextStyle = MovieAppTheme.typograph.calloutMedium
 ) {
     Column(modifier = modifier.clickable { onClick() }) {
         Row(

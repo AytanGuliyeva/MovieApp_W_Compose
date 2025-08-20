@@ -18,15 +18,7 @@ class SignInViewModel @Inject constructor(private val auth: FirebaseAuth) : MviV
         SignInSingleEvent
         >() {
 
-    init {
-//        if (auth.currentUser != null){
-//            backStack.clear()
-//            backStack.add(MovieDestination.Home)
-//        }else{
-//            backStack.clear()
-//            backStack.add(MovieDestination.SignIn)
-//        }
-    }
+
 
 
     override fun initState(): UiState<SignInState> = UiState.Success(SignInState())
